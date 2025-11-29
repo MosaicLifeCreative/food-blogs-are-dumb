@@ -41,10 +41,10 @@ a {
 	transition: color 0.3s ease;
 }
 
-	a:hover, a:focus {
-		color: #ffdd57; /* Adjust hover color */
-		text-decoration: underline;
-	}
+a:hover, a:focus {
+	color: #ffdd57;
+	text-decoration: underline;
+}
 
 /* HEADERS */
 h1, h2, h3, h4, h5 {
@@ -130,9 +130,9 @@ h1, h2, h3, h4, h5 {
 	transition: 0.3s;
 }
 
-	.btn:hover {
-		background: var(--button-gradient-hover);
-	}
+.btn:hover {
+	background: var(--button-gradient-hover);
+}
 
 /* Helper Classes */
 .border-rounded {
@@ -168,7 +168,8 @@ h1, h2, h3, h4, h5 {
 	/* Small breakpoint styles */
 }
 
-/* RECIPE TEMPLATE */
+/* =RECIPE TEMPLATE (Legacy - kept for compatibility)
+------------------------------------------------------- */
 .recipe-container {
 	max-width: 800px;
 	margin: 0 auto;
@@ -192,13 +193,25 @@ h1, h2, h3, h4, h5 {
 	padding: 0;
 }
 
-	.recipe-ingredients li {
-		background: #f8f8f8;
-		padding: 8px;
-		margin: 5px 0;
-		border-radius: 5px;
-	}
+.recipe-ingredients li {
+	background: #f8f8f8;
+	padding: 8px;
+	margin: 5px 0;
+	border-radius: 5px;
+}
 
 .recipe-instructions {
 	line-height: 1.6;
 }
+
+/* =Custom Overrides
+------------------------------------------------------- */
+
+/* Add your custom CSS overrides here */
+/* These will override the design system if needed */
+
+/* Example:
+.fbad-hero__title {
+	font-size: 4rem;
+}
+*/

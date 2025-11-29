@@ -16,23 +16,30 @@ function my_theme_enqueue_styles() {
     // Enqueue parent theme stylesheet
     wp_enqueue_style( $parent_style, get_template_directory_uri() . '/style.css' );
     
-    // Enqueue child theme stylesheet
+    // Enqueue child theme stylesheet (WordPress header + custom overrides)
     wp_enqueue_style( 'child-style',
         get_stylesheet_directory_uri() . '/style.css',
         array( $parent_style ),
         wp_get_theme()->get('Version')
     );
     
+    // Enqueue design system CSS (load after child-style so it can be overridden)
+    wp_enqueue_style( 'fbad-design-system',
+        get_stylesheet_directory_uri() . '/fbad-design-system.css',
+        array( 'child-style' ),
+        '1.0.0'
+    );
+    
     // Enqueue custom JavaScript
-    wp_enqueue_script( 'script', 
-        get_stylesheet_directory_uri() . '/js/scripts.js', 
+    wp_enqueue_script( 'fbad-scripts', 
+        get_stylesheet_directory_uri() . '/js/fbad-scripts.js', 
         array('jquery'), 
-        '1.0', 
+        '1.0.0', 
         true 
     );
     
-    // Pass data to JavaScript (including API info if needed)
-    wp_localize_script( 'script', 'foodBlogsData', array(
+    // Pass data to JavaScript
+    wp_localize_script( 'fbad-scripts', 'foodBlogsData', array(
         'ajaxUrl' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('food_blogs_nonce')
     ));
@@ -133,6 +140,31 @@ function ajax_search_recipes() {
 }
 add_action('wp_ajax_search_recipes', 'ajax_search_recipes');
 add_action('wp_ajax_nopriv_search_recipes', 'ajax_search_recipes');
+
+/**
+ * AJAX handler for getting recipe by ID
+ */
+function ajax_get_recipe_by_id() {
+    // Verify nonce
+    check_ajax_referer('food_blogs_nonce', 'nonce');
+    
+    $recipe_id = isset($_POST['recipe_id']) ? intval($_POST['recipe_id']) : 0;
+    
+    if (empty($recipe_id)) {
+        wp_send_json_error('No recipe ID provided');
+        return;
+    }
+    
+    $result = get_recipe_by_id($recipe_id);
+    
+    if (is_wp_error($result)) {
+        wp_send_json_error($result->get_error_message());
+    } else {
+        wp_send_json_success($result);
+    }
+}
+add_action('wp_ajax_get_recipe_by_id', 'ajax_get_recipe_by_id');
+add_action('wp_ajax_nopriv_get_recipe_by_id', 'ajax_get_recipe_by_id');
 
 /**
  * Custom Post Type Registration (if needed for storing recipes)

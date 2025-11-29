@@ -1,5 +1,0 @@
-//Client//
-(function ($) {
-	
-
-})(jQuery);

@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Blogs Are Dumb - Homepage Demo</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ==========================================================================
+           CSS VARIABLES
+           ========================================================================== */
+        :root {
+            --color-sage: #B4C7B4;
+            --color-peach: #F4D0C4;
+            --color-rose: #E8B4B8;
+            --color-cream: #FAF7F2;
+            --color-charcoal: #2C2C2C;
+            --color-terracotta: #D4846A;
+            --color-white: #FFFFFF;
+            --color-text: #2C2C2C;
+            --color-text-light: #666666;
+            
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-8: 3rem;
+            --space-10: 4rem;
+            --space-12: 6rem;
+            
+            --radius-md: 0.5rem;
+            --radius-lg: 1rem;
+            --radius-full: 9999px;
+            
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            background-color: var(--color-cream);
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           HERO SECTION
+           ========================================================================== */
+        .fbad-hero {
+            background: linear-gradient(135deg, var(--color-sage) 0%, var(--color-peach) 100%);
+            padding: var(--space-12) var(--space-4);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fbad-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="1.5" fill="rgba(255,255,255,0.2)"/></svg>');
+            opacity: 0.5;
+        }
+
+        .fbad-hero__content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .fbad-hero__title {
+            font-size: 3rem;
+            font-family: var(--font-display);
+            color: var(--color-white);
+            margin-bottom: var(--space-4);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .fbad-hero__subtitle {
+            font-size: 1.25rem;
+            color: var(--color-white);
+            margin-bottom: var(--space-8);
+            opacity: 0.9;
+        }
+
+        /* Search */
+        .fbad-search {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .fbad-search__wrapper {
+            position: relative;
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .fbad-search__input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            padding-left: 3rem;
+            font-size: 1rem;
+            font-family: var(--font-body);
+            border: 2px solid var(--color-white);
+            border-radius: var(--radius-lg);
+            background: var(--color-white);
+            outline: none;
+        }
+
+        .fbad-search__icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.25rem;
+            pointer-events: none;
+        }
+
+        .fbad-search__button {
+            padding: 1rem 2rem;
+            background: var(--color-terracotta);
+            color: var(--color-white);
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fbad-search__button:hover {
+            background: var(--color-charcoal);
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================================================
+           FILTER SECTION
+           ========================================================================== */
+        .fbad-section {
+            padding: var(--space-10) var(--space-4);
+        }
+
+        .fbad-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .fbad-text-center {
+            text-align: center;
+        }
+
+        .fbad-section h2 {
+            font-family: var(--font-display);
+            font-size: 2.25rem;
+            margin-bottom: var(--space-6);
+            color: var(--color-charcoal);
+        }
+
+        .fbad-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin: var(--space-6) 0;
+        }
+
+        .fbad-filter-pill {
+            padding: 0.5rem 1rem;
+            background: var(--color-white);
+            border: 2px solid var(--color-sage);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            color: var(--color-charcoal);
+        }
+
+        .fbad-filter-pill:hover {
+            background: var(--color-sage);
+            color: var(--color-white);
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================================================
+           RECIPE GRID
+           ========================================================================== */
+        .fbad-recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: var(--space-6);
+            margin: var(--space-8) 0;
+        }
+
+        .fbad-recipe-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fbad-recipe-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .fbad-recipe-card__image-wrapper {
+            position: relative;
+            padding-top: 66.67%;
+            overflow: hidden;
+            background: var(--color-sage);
+        }
+
+        .fbad-recipe-card__image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .fbad-recipe-card:hover .fbad-recipe-card__image {
+            transform: scale(1.05);
+        }
+
+        .fbad-recipe-card__save-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: var(--color-white);
+            border: none;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            transition: all 0.15s ease;
+            z-index: 10;
+            font-size: 1.25rem;
+        }
+
+        .fbad-recipe-card__save-btn:hover {
+            transform: scale(1.1);
+            background: var(--color-rose);
+        }
+
+        .fbad-recipe-card__content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fbad-recipe-card__title {
+            font-size: 1.25rem;
+            font-family: var(--font-display);
+            margin: 0 0 0.75rem;
+            line-height: 1.3;
+            color: var(--color-charcoal);
+        }
+
+        .fbad-recipe-card__meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            color: var(--color-text-light);
+        }
+
+        .fbad-recipe-card__meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .fbad-recipe-card__footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .fbad-recipe-card__cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--color-terracotta);
+            color: var(--color-white);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.15s ease;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .fbad-recipe-card__cta:hover {
+            background: var(--color-charcoal);
+            transform: translateX(2px);
+        }
+
+        /* ==========================================================================
+           FEATURES SECTION
+           ========================================================================== */
+        .fbad-features {
+            background: #E8F0E8;
+            padding: var(--space-10) var(--space-4);
+        }
+
+        .fbad-features__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+
+        .fbad-feature {
+            text-align: center;
+        }
+
+        .fbad-feature__icon {
+            font-size: 4rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .fbad-feature__title {
+            font-size: 1.5rem;
+            font-family: var(--font-display);
+            margin-bottom: 1rem;
+            color: var(--color-charcoal);
+        }
+
+        .fbad-feature__text {
+            color: var(--color-text-light);
+            line-height: 1.8;
+        }
+
+        /* ==========================================================================
+           CTA BANNER
+           ========================================================================== */
+        .fbad-cta-banner {
+            background: var(--color-terracotta);
+            padding: 6rem 1.5rem;
+            text-align: center;
+        }
+
+        .fbad-cta-banner h2 {
+            color: white;
+            font-size: 2.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .fbad-cta-banner .fbad-cta-button {
+            display: inline-flex;
+            background: white;
+            color: var(--color-terracotta);
+            padding: 1rem 2.5rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .fbad-cta-banner .fbad-cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ==========================================================================
+           RESPONSIVE
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .fbad-hero__title {
+                font-size: 2rem;
+            }
+            
+            .fbad-hero {
+                padding: 4rem 1rem;
+            }
+            
+            .fbad-recipe-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .fbad-section h2 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <section class="fbad-hero">
+        <div class="fbad-hero__content">
+            <h1 class="fbad-hero__title">Find Recipes Without the Life Story</h1>
+            <p class="fbad-hero__subtitle">Just the damn recipe, already.</p>
+            
+            <div class="fbad-search">
+                <div class="fbad-search__wrapper">
+                    <span class="fbad-search__icon">🔍</span>
+                    <input type="text" class="fbad-search__input" placeholder="Search for pasta, chicken, desserts...">
+                    <button class="fbad-search__button">Search</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FILTER SECTION -->
+    <section class="fbad-section" style="background: var(--color-cream);">
+        <div class="fbad-container fbad-text-center">
+            <h2>Browse by Diet</h2>
+            
+            <div class="fbad-filters">
+                <button class="fbad-filter-pill">🥗 Vegetarian</button>
+                <button class="fbad-filter-pill">🌱 Vegan</button>
+                <button class="fbad-filter-pill">🌾 Gluten Free</button>
+                <button class="fbad-filter-pill">🥑 Keto</button>
+                <button class="fbad-filter-pill">🍖 Paleo</button>
+                <button class="fbad-filter-pill">🥛 Dairy Free</button>
+                <button class="fbad-filter-pill">🌰 Nut Free</button>
+                <button class="fbad-filter-pill">🦐 Pescatarian</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED RECIPES -->
+    <section class="fbad-section" style="background: white;">
+        <div class="fbad-container">
+            <div class="fbad-text-center">
+                <h2>Popular Right Now</h2>
+                <p style="color: var(--color-text-light); font-size: 1.125rem; margin-bottom: 3rem;">Recipes people are actually making</p>
+            </div>
+            
+            <div class="fbad-recipe-grid">
+                <!-- Recipe Card 1 -->
+                <div class="fbad-recipe-card">
+                    <div class="fbad-recipe-card__image-wrapper">
+                        <img class="fbad-recipe-card__image" src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&h=300&fit=crop" alt="Pasta Carbonara">
+                        <button class="fbad-recipe-card__save-btn">🤍</button>
+                    </div>
+                    <div class="fbad-recipe-card__content">
+                        <h3 class="fbad-recipe-card__title">Classic Pasta Carbonara</h3>
+                        <div class="fbad-recipe-card__meta">
+                            <div class="fbad-recipe-card__meta-item">
+                                <span>⏱️</span>
+                                <span>30 mins</span>
+                            </div>
+                            <div class="fbad-recipe-card__meta-item">
+                                <span>🍽️</span>
+                                <span>4 servings</span>
+                            </div>
+                        </div>
+                        <div class="fbad-recipe-card__footer">
+                            <a href="#" class="fbad-recipe-card__cta">View Recipe →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recipe Card 2 -->
+                <div class="fbad-recipe-card">
+                    <div class="fbad-recipe-card__image-wrapper">
+                        <img class="fbad-recipe-card__image" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop" alt="Fresh Salad">
+                        <button class="fbad-recipe-card__save-btn">🤍</button>
+                    </div>
+                    <div class="fbad-recipe-card__content">
+                        <h3 class="fbad-recipe-card__title">Mediterranean Quinoa Bowl</h3>
+                        <div class="fbad-recipe-card__meta">
+                            <div class="fbad-recipe-card__meta-item">
+                                <span>⏱️</span>
+                                <span>20 mins</span>
+                            </div>
+                            <div class="fbad-recipe-card__meta-item">
+                                <span>🍽️</span>
+                                <span>2 servings</span>
+                            </div>
+                        </div>
+                        <div class="fbad-recipe-card__footer">
+                            <a href="#" class="fbad-recipe-card__cta">View Recipe →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recipe Card 3 -->
+                <div class="fbad-recipe-card">
+                    <div class="fbad-recipe-card__image-wrapper">
+                        <img class="fbad-recipe-card__image" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop" alt="Pizza">
+                        <button class="fbad-recipe-card__save-btn">🤍</button>
+                    </div>
+                    <div class="fbad-recipe-card__content">
+                        <h3 class="fbad-recipe-card__title">Homemade Margherita Pizza</h3>
+                        <div class="fbad-recipe-card__meta">
+                            <div class="fbad-recipe-card__meta-item">
+                                <span>⏱️</span>
+                                <span>45 mins</span>
+                            </div>
+                            <div class="fbad-recipe-card__meta-item">
+                                <span>🍽️</span>
+                                <span>6 servings</span>
+                            </div>
+                        </div>
+                        <div class="fbad-recipe-card__footer">
+                            <a href="#" class="fbad-recipe-card__cta">View Recipe →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recipe Card 4 -->
+                <div class="fbad-recipe-card">
+                    <div class="fbad-recipe-card__image-wrapper">
+                        <img class="fbad-recipe-card__image" src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=400&h=300&fit=crop" alt="Salmon">
+                        <button class="fbad-recipe-card__save-btn">🤍</button>
+                    </div>
+                    <div class="fbad-recipe-card__content">
+                        <h3 class="fbad-recipe-card__title">Honey Glazed Salmon</h3>
+                        <div class="fbad-recipe-card__meta">
+                            <div class="fbad-recipe-card__meta-item">
+                                <span>⏱️</span>
+                                <span>25 mins</span>
+                            </div>
+                            <div class="fbad-recipe-card__meta-item">
+                                <span>🍽️</span>
+                                <span>2 servings</span>
+                            </div>
+                        </div>
+                        <div class="fbad-recipe-card__footer">
+                            <a href="#" class="fbad-recipe-card__cta">View Recipe →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recipe Card 5 -->
+                <div class="fbad-recipe-card">
+                    <div class="fbad-recipe-card__image-wrapper">
+                        <img class="fbad-recipe-card__image" src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400&h=300&fit=crop" alt="Tacos">
+                        <button class="fbad-recipe-card__save-btn">🤍</button>
+                    </div>
+                    <div class="fbad-recipe-card__content">
+                        <h3 class="fbad-recipe-card__title">Spicy Fish Tacos</h3>
+                        <div class="fbad-recipe-card__meta">
+                            <div class="fbad-recipe-card__meta-item">
+                                <span>⏱️</span>
+                                <span>35 mins</span>
+                            </div>
+                            <div class="fbad-recipe-card__meta-item">
+                                <span>🍽️</span>
+                                <span>4 servings</span>
+                            </div>
+                        </div>
+                        <div class="fbad-recipe-card__footer">
+                            <a href="#" class="fbad-recipe-card__cta">View Recipe →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recipe Card 6 -->
+                <div class="fbad-recipe-card">
+                    <div class="fbad-recipe-card__image-wrapper">
+                        <img class="fbad-recipe-card__image" src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400&h=300&fit=crop" alt="Smoothie Bowl">
+                        <button class="fbad-recipe-card__save-btn">🤍</button>
+                    </div>
+                    <div class="fbad-recipe-card__content">
+                        <h3 class="fbad-recipe-card__title">Berry Açaí Smoothie Bowl</h3>
+                        <div class="fbad-recipe-card__meta">
+                            <div class="fbad-recipe-card__meta-item">
+                                <span>⏱️</span>
+                                <span>10 mins</span>
+                            </div>
+                            <div class="fbad-recipe-card__meta-item">
+                                <span>🍽️</span>
+                                <span>1 serving</span>
+                            </div>
+                        </div>
+                        <div class="fbad-recipe-card__footer">
+                            <a href="#" class="fbad-recipe-card__cta">View Recipe →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="fbad-features">
+        <div class="fbad-container">
+            <div class="fbad-text-center">
+                <h2>No BS. Just Recipes.</h2>
+            </div>
+            
+            <div class="fbad-features__grid">
+                <div class="fbad-feature">
+                    <div class="fbad-feature__icon">🔍</div>
+                    <h3 class="fbad-feature__title">Search</h3>
+                    <p class="fbad-feature__text">Find what you want without scrolling through someone's childhood memories</p>
+                </div>
+                
+                <div class="fbad-feature">
+                    <div class="fbad-feature__icon">📋</div>
+                    <h3 class="fbad-feature__title">Get Recipe</h3>
+                    <p class="fbad-feature__text">Ingredients and instructions. That's it. Revolutionary, we know.</p>
+                </div>
+                
+                <div class="fbad-feature">
+                    <div class="fbad-feature__icon">❤️</div>
+                    <h3 class="fbad-feature__title">Save</h3>
+                    <p class="fbad-feature__text">Come back anytime. No account, no newsletter, no BS.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="fbad-cta-banner">
+        <h2>Ready to Skip the Stories?</h2>
+        <a href="#" class="fbad-cta-button">Start Cooking →</a>
+    </section>
+
+    <script>
+        // Simple heart toggle for demo
+        document.querySelectorAll('.fbad-recipe-card__save-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.textContent.includes('🤍')) {
+                    this.innerHTML = '❤️';
+                    this.style.background = '#E8B4B8';
+                } else {
+                    this.innerHTML = '🤍';
+                    this.style.background = 'white';
+                }
+            });
+        });
+        
+        // Filter pill hover effect
+        document.querySelectorAll('.fbad-filter-pill').forEach(pill => {
+            pill.addEventListener('click', function() {
+                this.style.background = this.style.background === 'rgb(180, 199, 180)' ? 'white' : '#B4C7B4';
+                this.style.color = this.style.color === 'white' ? '#2C2C2C' : 'white';
+            });
+        });
+    </script>
+
+</body>
+</html>
