@@ -1,0 +1,204 @@
+/*
+ Theme Name:     Divi Child Theme - Food Blogs Are Dumb
+ Theme URI:      https://www.elegantthemes.com/gallery/divi/
+ Description:    Divi Child Theme
+ Author:         Elegant Themes
+ Author URI:     https://www.elegantthemes.com
+ Template:       Divi
+ Version:        1.0.0
+*/
+
+/* =Global Variables
+------------------------------------------------------- */
+:root {
+	--button-gradient: linear-gradient(200deg, rgb(0, 27, 113) 0%, rgb(234, 0, 70) 100%);
+	--button-gradient-hover: linear-gradient(270deg, rgb(0, 27, 113) 0%, rgb(234, 0, 70) 100%);
+	--primary-color: #0d6efd;
+	--secondary-color: #6c757d;
+	--spacing-10: 10px;
+	--spacing-20: 20px;
+	--breakpoint-md: 980px;
+	--breakpoint-sm: 768px;
+}
+
+/* =Theme customization starts here
+------------------------------------------------------- */
+
+/* GLOBAL */
+body, html {
+	overflow-x: hidden !important;
+	max-width: 100vw !important;
+	scroll-behavior: smooth;
+}
+
+.container {
+	max-width: 100% !important;
+	overflow-x: hidden !important;
+}
+
+a {
+	color: white;
+	transition: color 0.3s ease;
+}
+
+	a:hover, a:focus {
+		color: #ffdd57; /* Adjust hover color */
+		text-decoration: underline;
+	}
+
+/* HEADERS */
+h1, h2, h3, h4, h5 {
+	display: block;
+	margin: 0;
+	padding: 0;
+	word-break: keep-all;
+	line-height: 1.2;
+}
+
+/* VERTICAL ALIGN */
+.vertical-align {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+/* =Utility Classes
+------------------------------------------------------- */
+
+/* Spacing */
+.p-20 {
+	padding: 20px;
+}
+
+.m-20 {
+	margin: 20px;
+}
+
+.pt-10 {
+	padding-top: 10px;
+}
+
+.pb-10 {
+	padding-bottom: 10px;
+}
+
+.pl-10 {
+	padding-left: 10px;
+}
+
+.pr-10 {
+	padding-right: 10px;
+}
+
+/* Text and Display */
+.text-center {
+	text-align: center;
+}
+
+.text-uppercase {
+	text-transform: uppercase;
+}
+
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.hidden-md {
+	display: none;
+}
+
+@media all and (max-width: var(--breakpoint-md)) {
+	.hidden-md {
+		display: block;
+	}
+}
+
+/* Button Styles */
+.btn {
+	background: var(--button-gradient);
+	color: white;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-weight: bold;
+	text-transform: uppercase;
+	transition: 0.3s;
+}
+
+	.btn:hover {
+		background: var(--button-gradient-hover);
+	}
+
+/* Helper Classes */
+.border-rounded {
+	border-radius: 5px;
+}
+
+.shadow {
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Layout */
+.grid-2 {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: var(--spacing-10);
+}
+
+.flex {
+	display: flex;
+}
+
+.flex-column {
+	display: flex;
+	flex-direction: column;
+}
+
+/* Responsive Breakpoints */
+@media all and (max-width: var(--breakpoint-md)) {
+	/* Medium breakpoint styles */
+}
+
+@media all and (max-width: var(--breakpoint-sm)) {
+	/* Small breakpoint styles */
+}
+
+/* RECIPE TEMPLATE */
+.recipe-container {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.recipe-title {
+	text-align: center;
+}
+
+.recipe-image {
+	width: 100%;
+	max-height: 400px;
+	object-fit: cover;
+	border-radius: 8px;
+	margin-bottom: 20px;
+}
+
+.recipe-ingredients {
+	list-style: none;
+	padding: 0;
+}
+
+	.recipe-ingredients li {
+		background: #f8f8f8;
+		padding: 8px;
+		margin: 5px 0;
+		border-radius: 5px;
+	}
+
+.recipe-instructions {
+	line-height: 1.6;
+}
