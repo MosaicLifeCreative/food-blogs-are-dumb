@@ -822,12 +822,10 @@ a:hover {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	gap: var(--space-4);
+	gap: var(--space-3);
 	font-size: var(--text-base);
 	color: var(--color-text-light);
 	margin-bottom: var(--space-6);
-	padding-bottom: var(--space-5);
-	border-bottom: 1px solid var(--color-cream);
 }
 
 .fbad-recipe-detail__meta-item {
@@ -843,8 +841,8 @@ a:hover {
 .fbad-recipe-detail__save-btn {
 	display: inline-flex;
 	align-items: center;
-	gap: var(--space-2);
-	padding: var(--space-3) var(--space-5);
+	gap: var(--space-3);
+	padding: 12px 28px;
 	background: var(--color-terracotta);
 	color: var(--color-white);
 	border: none;
@@ -1112,14 +1110,14 @@ a:hover {
 	}
 
 	.fbad-recipe-detail__meta {
-		gap: var(--space-3);
+		gap: var(--space-2);
 	}
 
 	.fbad-recipe-detail__save-btn {
 		flex-basis: 100%;
 		justify-content: center;
 		margin-left: 0;
-		margin-top: var(--space-2);
+		margin-top: var(--space-3);
 	}
 
 	.fbad-recipe-detail__footer {
