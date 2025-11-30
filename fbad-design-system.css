@@ -763,16 +763,18 @@ a:hover {
 	transform: translateY(-2px);
 }
 
-/* Scroll indicator */
+/* Scroll indicator - hidden for now */
 .fbad-hero-fullwidth__scroll {
-	position: absolute;
+	display: none;
+	/* Uncomment below if you want to re-enable it later */
+	/* position: absolute;
 	bottom: 2rem;
 	left: 50%;
 	transform: translateX(-50%);
 	color: white;
 	font-size: 2rem;
 	animation: bounce 2s infinite;
-	opacity: 0.8;
+	opacity: 0.8; */
 }
 
 @keyframes bounce {
