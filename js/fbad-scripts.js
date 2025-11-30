@@ -203,28 +203,28 @@
 	// ==========================================================================
 
 	function initSearch() {
-		const $searchForm = $('.fbad-search__wrapper');
-		const $searchInput = $('.fbad-search__input');
-		const $searchButton = $('.fbad-search__button');
-		const $resultsContainer = $('.fbad-recipe-grid');
+		// Support both regular and full-width search boxes
+		const $searchInput = $('.fbad-search__input, .fbad-search-fullwidth__input');
+		const $searchButton = $('.fbad-search__button, .fbad-search-fullwidth__button');
+		const $resultsContainer = $('#recipe-results, .fbad-recipe-grid');
 
 		// Handle search
 		$searchButton.on('click', function(e) {
 			e.preventDefault();
 			const query = $searchInput.val().trim();
-			
+
 			if (!query) return;
-			
+
 			// Show loading
 			$resultsContainer.html('<div class="fbad-loading">Searching for delicious recipes...</div>');
-			
+
 			// Search
 			RecipeAPI.search(query)
 				.then(data => {
 					if (data.results && data.results.length > 0) {
 						const html = data.results.map(recipe => renderRecipeCard(recipe)).join('');
 						$resultsContainer.html(html);
-						
+
 						// Re-initialize save buttons
 						initSaveButtons();
 					} else {
