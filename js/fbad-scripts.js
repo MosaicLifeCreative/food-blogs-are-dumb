@@ -23,8 +23,11 @@
 		save: function(recipeId, recipeData) {
 			const saved = this.getSaved();
 			
+			// Ensure ID is a number
+			recipeId = parseInt(recipeId);
+
 			// Check if already saved
-			const exists = saved.find(r => r.id === recipeId);
+			const exists = saved.find(r => parseInt(r.id) === recipeId);
 			if (exists) return false;
 			
 			// Add to saved
@@ -44,16 +47,20 @@
 
 		// Remove a saved recipe
 		remove: function(recipeId) {
+			// Ensure ID is a number
+			recipeId = parseInt(recipeId);
 			let saved = this.getSaved();
-			saved = saved.filter(r => r.id !== recipeId);
+			saved = saved.filter(r => parseInt(r.id) !== recipeId);
 			localStorage.setItem(this.storageKey, JSON.stringify(saved));
 			this.updateBadge();
 		},
 
 		// Check if recipe is saved
 		isSaved: function(recipeId) {
+			// Ensure ID is a number
+			recipeId = parseInt(recipeId);
 			const saved = this.getSaved();
-			return saved.some(r => r.id === recipeId);
+			return saved.some(r => parseInt(r.id) === recipeId);
 		},
 
 		// Toggle save status
