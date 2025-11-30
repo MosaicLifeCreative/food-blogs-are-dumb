@@ -843,7 +843,11 @@ a:hover {
 }
 
 .fbad-text-center {
-	text-align: center;
+	text-align: center !important;
+}
+
+.fbad-text-center * {
+	text-align: center !important;
 }
 
 .fbad-mt-8 {
