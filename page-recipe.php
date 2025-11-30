@@ -76,7 +76,7 @@ if ($recipe_id) {
                                     data-recipe-servings="<?php echo esc_attr($recipe['servings'] ?? ''); ?>"
                                     aria-label="Save recipe"
                                     aria-pressed="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fbad-save-icon" aria-hidden="true" focusable="false"><path d="M12.1 21.35l-1.1-1.03C5.14 15.24 2 12.39 2 8.5 2 6.5 3.5 5 5.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5 18.5 5 20 6.5 20 8.5c0 3.89-3.14 6.74-8.99 11.82l-1.1 1.03z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <span class="fbad-save-icon">🤍</span>
                                 <span class="fbad-recipe-detail__save-text">Save Recipe</span>
                             </button>
                         </div>

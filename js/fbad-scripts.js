@@ -6,9 +6,9 @@
 (function($) {
 	'use strict';
 
-	// Inline SVGs for save icons (outline & filled heart)
-	const heartOutlineSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fbad-save-icon" aria-hidden="true" focusable="false"><path d="M12.1 21.35l-1.1-1.03C5.14 15.24 2 12.39 2 8.5 2 6.5 3.5 5 5.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5 18.5 5 20 6.5 20 8.5c0 3.89-3.14 6.74-8.99 11.82l-1.1 1.03z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-	const heartFilledSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fbad-save-icon" aria-hidden="true" focusable="false"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6.42 3.42 5 5.5 5c1.74 0 3.41 1.01 4.13 2.44h1.74C12.09 6.01 13.76 5 15.5 5 17.58 5 19 6.42 19 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/></svg>`;
+	// Emoji strings for save icons (outline & filled heart)
+	const heartOutline = '🤍';
+	const heartFilled = '❤️';
 
 	// ==========================================================================
 	// SAVED RECIPES MANAGER
@@ -100,9 +100,9 @@
 				if (SavedRecipes.isSaved(recipeId)) {
 					$(this).addClass('is-saved');
 					if ($(this).find('.fbad-save-icon').length) {
-						$(this).find('.fbad-save-icon').replaceWith(heartFilledSvg);
+						$(this).find('.fbad-save-icon').text(heartFilled);
 					} else {
-						$(this).find('span').first().replaceWith(heartFilledSvg);
+						$(this).find('span').first().text(heartFilled);
 					}
 					// If this is a detail-style button with text, update the label
 					if ($(this).hasClass('fbad-save-btn--detail') || $(this).hasClass('fbad-recipe-detail__save-btn')) {
@@ -180,7 +180,7 @@
 
 	 function renderRecipeCard(recipe) {
 		const isSaved = SavedRecipes.isSaved(recipe.id);
-		const saveIcon = isSaved ? heartFilledSvg : heartOutlineSvg;
+		const saveIcon = isSaved ? heartFilled : heartOutline;
 		
 		return `
 			<div class="fbad-recipe-card">
@@ -194,7 +194,7 @@
 							data-recipe-servings="${recipe.servings || ''}"
 							aria-label="Save recipe"
 							aria-pressed="${isSaved}">
-						${saveIcon}
+						<span class="fbad-save-icon">${saveIcon}</span>
 						<span class="sr-only">Save recipe</span>
 					</button>
 				</div>
@@ -467,9 +467,9 @@
 					$el.addClass('is-saved');
 					$el.attr('aria-pressed', 'true');
 					if ($el.find('.fbad-save-icon').length) {
-						$el.find('.fbad-save-icon').replaceWith(heartFilledSvg);
+						$el.find('.fbad-save-icon').text(heartFilled);
 					} else {
-						$el.find('span').first().replaceWith(heartFilledSvg);
+						$el.find('span').first().text(heartFilled);
 					}
 					$el.find('.fbad-recipe-detail__save-text').text('Saved!');
 					$el.attr('aria-label', 'Saved recipe');
@@ -477,9 +477,9 @@
 					$el.removeClass('is-saved');
 					$el.attr('aria-pressed', 'false');
 					if ($el.find('.fbad-save-icon').length) {
-						$el.find('.fbad-save-icon').replaceWith(heartOutlineSvg);
+						$el.find('.fbad-save-icon').text(heartOutline);
 					} else {
-						$el.find('span').first().replaceWith(heartOutlineSvg);
+						$el.find('span').first().text(heartOutline);
 					}
 					$el.find('.fbad-recipe-detail__save-text').text('Save Recipe');
 					$el.attr('aria-label', 'Save recipe');
@@ -630,7 +630,7 @@
 				<div class="fbad-saved-item__actions">
 					<a href="/recipe/?id=${recipe.id}" class="fbad-saved-item__view">View Recipe →</a>
 					<button class="fbad-saved-item__remove" data-recipe-id="${recipe.id}" aria-label="Remove recipe">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fbad-save-icon" aria-hidden="true" focusable="false"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6.42 3.42 5 5.5 5c1.74 0 3.41 1.01 4.13 2.44h1.74C12.09 6.01 13.76 5 15.5 5 17.58 5 19 6.42 19 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/></svg>
+						<span class="fbad-save-icon">❤️</span>
 					</button>
 				</div>
 			</div>

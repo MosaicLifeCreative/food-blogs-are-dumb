@@ -857,11 +857,12 @@ a:hover {
 	font-size: var(--text-xl);
 }
 
+/* Detail-style save button (pill with icon + text) */
 .fbad-save-btn--detail, .fbad-recipe-detail__save-btn {
 	display: inline-flex;
 	align-items: center;
-	gap: 8px;
-	padding: 10px 20px;
+	gap: var(--space-3); /* 12px - gives a little more breathing room */
+	padding: 12px 20px;
 	background: var(--color-terracotta);
 	color: var(--color-white);
 	border: none;
@@ -877,7 +878,8 @@ a:hover {
 	position: static;
 	width: auto;
 	height: auto;
-	min-width: 140px; /* give space for icon + text on desktop */
+	min-width: 140px; /* increase room for icon + text on desktop */
+	white-space: nowrap;
 }
 
 .fbad-save-btn--detail:hover, .fbad-recipe-detail__save-btn:hover {
@@ -1355,10 +1357,15 @@ a:hover {
 }
 
 .fbad-save-icon {
-	width: 20px;
-	height: 20px;
-	display: inline-block;
-	vertical-align: middle;
+	font-size: 22px; /* slightly larger so emojis don't clip */
+	line-height: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;   /* a consistent circular background will use this - card rules will override */
+	height: 32px;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: var(--radius-full);
 }
 
 /* Utility: screen reader only */
