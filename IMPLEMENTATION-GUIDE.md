@@ -126,7 +126,7 @@ When you want to manually add recipe cards in Divi:
 <div class="fbad-recipe-card">
     <div class="fbad-recipe-card__image-wrapper">
         <img class="fbad-recipe-card__image" src="IMAGE_URL" alt="RECIPE_NAME">
-        <button class="fbad-recipe-card__save-btn" 
+        <button class="fbad-save-btn fbad-save-btn--card" 
                 data-recipe-id="123"
                 data-recipe-title="RECIPE_NAME"
                 data-recipe-image="IMAGE_URL">

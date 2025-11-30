@@ -163,7 +163,7 @@ a:hover {
 	transform: scale(1.05);
 }
 
-.fbad-recipe-card__save-btn {
+.fbad-save-btn--card {
 	position: absolute;
 	top: var(--space-4);
 	right: var(--space-4);
@@ -181,17 +181,29 @@ a:hover {
 	z-index: 10;
 }
 
-.fbad-recipe-card__save-btn:hover {
+.fbad-save-btn--card:hover {
 	transform: scale(1.1);
 	background: var(--color-rose);
 }
 
-.fbad-recipe-card__save-btn.is-saved {
+.fbad-save-btn--card.is-saved {
 	background: var(--color-rose);
 	color: var(--color-white);
 }
+/* Ensure svg strokes/fills inherit color for consistent behavior */
+.fbad-save-btn--card .fbad-save-icon,
+.fbad-save-btn--card svg {
+	color: var(--color-charcoal);
+	stroke: currentColor;
+}
+.fbad-save-btn--card.is-saved .fbad-save-icon,
+.fbad-save-btn--card.is-saved svg {
+	color: var(--color-white);
+	stroke: currentColor;
+}
 
-.fbad-recipe-card__save-btn svg {
+.fbad-save-btn--card svg,
+.fbad-save-btn .fbad-save-icon {
 	width: 20px;
 	height: 20px;
 }
@@ -845,7 +857,7 @@ a:hover {
 	font-size: var(--text-xl);
 }
 
-.fbad-recipe-detail__save-btn {
+.fbad-save-btn--detail, .fbad-recipe-detail__save-btn {
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
@@ -861,9 +873,14 @@ a:hover {
 	box-shadow: 0 2px 8px rgba(216, 103, 79, 0.2);
 	font-family: var(--font-body);
 	flex-shrink: 0;
+	/* Override card-sized button defaults to avoid being condensed when both classes exist */
+	position: static;
+	width: auto;
+	height: auto;
+	min-width: 140px; /* give space for icon + text on desktop */
 }
 
-.fbad-recipe-detail__save-btn:hover {
+.fbad-save-btn--detail:hover, .fbad-recipe-detail__save-btn:hover {
 	background: var(--color-charcoal);
 	transform: translateY(-2px);
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -873,19 +890,30 @@ a:hover {
 	transform: translateY(0);
 }
 
-.fbad-recipe-detail__save-btn.is-saved {
+.fbad-save-btn--detail.is-saved, .fbad-recipe-detail__save-btn.is-saved {
 	background: var(--color-sage);
 	box-shadow: 0 2px 8px rgba(180, 199, 180, 0.25);
 }
 
-.fbad-recipe-detail__save-btn.is-saved:hover {
+.fbad-save-btn--detail.is-saved:hover, .fbad-recipe-detail__save-btn.is-saved:hover {
 	background: var(--color-charcoal);
 }
 
-.fbad-recipe-detail__save-btn > span:first-child {
-	font-size: 20px;
+.fbad-save-btn--detail.is-saved > .fbad-save-icon, .fbad-recipe-detail__save-btn.is-saved > span:first-child {
+	background: var(--color-white);
+	color: var(--color-sage);
+}
+
+.fbad-save-btn > .fbad-save-icon, .fbad-recipe-detail__save-btn > span:first-child {
+	font-size: 22px;
 	line-height: 1;
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: var(--radius-full);
 }
 
 .fbad-recipe-detail__save-text {
@@ -1128,6 +1156,9 @@ a:hover {
 
 	.fbad-recipe-detail__save-btn {
 		width: 100%;
+		min-width: auto; /* let it fill available width */
+		padding: 12px 18px;
+		font-size: var(--text-base);
 		justify-content: center;
 	}
 
@@ -1307,4 +1338,38 @@ a:hover {
 		bottom: var(--space-4);
 		right: var(--space-4);
 	}
+}
+
+/* Unified save button utility class for both card & detail contexts */
+.fbad-save-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-2);
+	transition: all var(--transition-fast);
+	cursor: pointer;
+	border: none;
+	color: inherit;
+	padding: 0;
+	background: none; /* don't force transparent for modifier classes */
+}
+
+.fbad-save-icon {
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* Utility: screen reader only */
+.sr-only {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0 0 0 0) !important;
+	white-space: nowrap !important;
+	border: 0 !important;
 }
