@@ -161,7 +161,7 @@
 		return `
 			<div class="fbad-recipe-card">
 				<div class="fbad-recipe-card__image-wrapper">
-					<img class="fbad-recipe-card__image" src="${recipe.image}" alt="${recipe.title}">
+					<img class="fbad-recipe-card__image" src="${recipe.image.replace('.jpg', '-636x393.jpg')}" alt="${recipe.title}">
 					<button class="fbad-recipe-card__save-btn ${isSaved ? 'is-saved' : ''}" 
 							data-recipe-id="${recipe.id}"
 							data-recipe-title="${recipe.title}"
@@ -227,6 +227,11 @@
 
 						// Re-initialize save buttons
 						initSaveButtons();
+
+						// Smooth scroll to results
+						setTimeout(() => {
+							$resultsContainer[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+						}, 100);
 					} else {
 						$resultsContainer.html('<div class="fbad-loading">No recipes found. Try a different search!</div>');
 					}
