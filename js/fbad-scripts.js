@@ -473,8 +473,8 @@
 						.fbad-saved-item__title { margin: 0 0 8px 0; font-size: 16px; font-weight: 600; color: var(--color-charcoal); }
 						.fbad-saved-item__meta { display: flex; gap: 16px; font-size: 14px; color: var(--color-text-light); }
 						.fbad-saved-item__actions { display: flex; align-items: center; gap: 12px; }
-						.fbad-saved-item__view { padding: 8px 16px; background: var(--color-cta); color: white; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 600; transition: all 0.2s ease; white-space: nowrap; }
-						.fbad-saved-item__view:hover { background: var(--color-charcoal); transform: translateY(-1px); }
+						.fbad-saved-item__view { padding: 8px 16px; background: var(--color-cta); color: white; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 600; transition: background 0.2s ease; white-space: nowrap; }
+						.fbad-saved-item__view:hover { background: var(--color-charcoal); color: white; }
 						.fbad-saved-item__remove { background: none; border: none; font-size: 24px; cursor: pointer; padding: 4px; line-height: 1; transition: transform 0.2s ease; }
 						.fbad-saved-item__remove:hover { transform: scale(1.2); }
 					`)
