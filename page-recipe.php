@@ -82,6 +82,17 @@ if ($recipe_id) {
                                 <span><?php echo esc_html($recipe['servings']); ?> servings</span>
                             </div>
                             <?php endif; ?>
+
+                            <button class="fbad-recipe-detail__save-btn fbad-recipe-card__save-btn"
+                                    data-recipe-id="<?php echo esc_attr($recipe['id']); ?>"
+                                    data-recipe-title="<?php echo esc_attr($recipe['title']); ?>"
+                                    data-recipe-image="<?php echo esc_attr($recipe['image']); ?>"
+                                    data-recipe-time="<?php echo esc_attr($recipe['readyInMinutes'] ?? ''); ?>"
+                                    data-recipe-servings="<?php echo esc_attr($recipe['servings'] ?? ''); ?>"
+                                    aria-label="Save recipe">
+                                <span>🤍</span>
+                                <span class="fbad-recipe-detail__save-text">Save Recipe</span>
+                            </button>
                         </div>
                     </header>
 

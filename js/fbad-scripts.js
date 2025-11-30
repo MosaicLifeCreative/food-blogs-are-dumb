@@ -94,7 +94,7 @@
 			$('.fbad-recipe-card__save-btn').each(function() {
 				const recipeId = $(this).data('recipe-id');
 				if (SavedRecipes.isSaved(recipeId)) {
-					$(this).addClass('is-saved');
+					$(this).addClass('is-saved').find('span').first().text('❤️');
 				}
 			});
 		}
@@ -206,6 +206,18 @@
 	}
 
 	// ==========================================================================
+	// SEARCH STATE
+	// ==========================================================================
+
+	const SearchState = {
+		currentQuery: '',
+		currentFilters: {},
+		currentOffset: 0,
+		hasMore: true,
+		searchType: 'popular' // or 'search' or 'filter'
+	};
+
+	// ==========================================================================
 	// SEARCH FUNCTIONALITY
 	// ==========================================================================
 
@@ -224,6 +236,7 @@
 
 			// Show loading
 			$resultsContainer.html('<div class="fbad-loading">Searching for delicious recipes...</div>');
+			hideLoadMoreButton();
 
 			// Search
 			RecipeAPI.search(query)
@@ -232,8 +245,19 @@
 						const html = data.results.map(recipe => renderRecipeCard(recipe)).join('');
 						$resultsContainer.html(html);
 
+						// Update search state
+						SearchState.searchType = 'search';
+						SearchState.currentQuery = query;
+						SearchState.currentFilters = {};
+						SearchState.currentOffset = 0;
+
 						// Re-initialize save buttons
 						initSaveButtons();
+
+						// Show load more if we got 9 results
+						if (data.results.length === 9) {
+							showLoadMoreButton();
+						}
 
 						// Smooth scroll to results
 						setTimeout(() => {
@@ -256,6 +280,85 @@
 				$searchButton.click();
 			}
 		});
+	}
+
+	// ==========================================================================
+	// LOAD MORE BUTTON
+	// ==========================================================================
+
+	function showLoadMoreButton() {
+		const $resultsContainer = $('.fbad-recipe-grid');
+		// Remove existing button if any
+		$('.fbad-load-more').remove();		// Add load more button
+		const $loadMoreBtn = $(`
+			<div class="fbad-load-more">
+				<button class="fbad-load-more__btn">Load More Recipes</button>
+			</div>
+		`);
+
+		$loadMoreBtn.insertAfter($resultsContainer);
+
+		// Handle click
+		$loadMoreBtn.find('button').on('click', function() {
+			const $btn = $(this);
+			$btn.text('Loading...').prop('disabled', true);
+
+			// Increment offset
+			SearchState.currentOffset += 9;
+
+			// Determine what to load based on search type
+			let loadPromise;
+
+			if (SearchState.searchType === 'search') {
+				loadPromise = RecipeAPI.search(SearchState.currentQuery, {
+					...SearchState.currentFilters,
+					offset: SearchState.currentOffset
+				});
+			} else if (SearchState.searchType === 'filter') {
+				loadPromise = RecipeAPI.search(SearchState.currentQuery || '', {
+					...SearchState.currentFilters,
+					offset: SearchState.currentOffset
+				});
+			} else {
+				// Load more popular recipes
+				loadPromise = $.ajax({
+					url: foodBlogsData.ajaxUrl,
+					type: 'POST',
+					data: {
+						action: 'get_popular_recipes',
+						nonce: foodBlogsData.nonce,
+						number: 9,
+						offset: SearchState.currentOffset
+					}
+				}).then(response => response.data);
+			}
+
+			loadPromise.then(data => {
+				if (data.results && data.results.length > 0) {
+					const html = data.results.map(recipe => renderRecipeCard(recipe)).join('');
+					$resultsContainer.append(html);
+					initSaveButtons();
+
+					// If less than 9 results, hide load more button
+					if (data.results.length < 9) {
+						$loadMoreBtn.remove();
+					} else {
+						$btn.text('Load More Recipes').prop('disabled', false);
+					}
+				} else {
+					$loadMoreBtn.remove();
+					showToast('No more recipes to load!');
+				}
+			}).catch(error => {
+				console.error('Load more error:', error);
+				$btn.text('Load More Recipes').prop('disabled', false);
+				showToast('Error loading more recipes');
+			});
+		});
+	}
+
+	function hideLoadMoreButton() {
+		$('.fbad-load-more').remove();
 	}
 
 	// ==========================================================================
@@ -292,6 +395,17 @@
 					const html = response.data.results.map(recipe => renderRecipeCard(recipe)).join('');
 					$resultsContainer.html(html);
 					initSaveButtons();
+
+					// Update search state
+					SearchState.searchType = 'popular';
+					SearchState.currentQuery = '';
+					SearchState.currentFilters = {};
+					SearchState.currentOffset = 0;
+
+					// Show load more button if we got 9 results
+					if (response.data.results.length === 9) {
+						showLoadMoreButton();
+					}
 				} else {
 					$resultsContainer.html('<div class="fbad-loading">Use the search box above to find recipes!</div>');
 				}
@@ -323,14 +437,16 @@
 			};
 
 			const isSaved = SavedRecipes.toggle(recipeId, recipeData);
-			
+
 			// Update button state
 			if (isSaved) {
-				$btn.addClass('is-saved').find('span').text('❤️');
+				$btn.addClass('is-saved').find('span').first().text('❤️');
+				$btn.find('.fbad-recipe-detail__save-text').text('Saved!');
 			} else {
-				$btn.removeClass('is-saved').find('span').text('🤍');
+				$btn.removeClass('is-saved').find('span').first().text('🤍');
+				$btn.find('.fbad-recipe-detail__save-text').text('Save Recipe');
 			}
-			
+
 			// Show feedback
 			showToast(isSaved ? 'Recipe saved!' : 'Recipe removed');
 		});
