@@ -820,10 +820,14 @@ a:hover {
 
 .fbad-recipe-detail__meta {
 	display: flex;
-	gap: var(--space-6);
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-4);
 	font-size: var(--text-base);
 	color: var(--color-text-light);
-	margin-bottom: 0;
+	margin-bottom: var(--space-6);
+	padding-bottom: var(--space-5);
+	border-bottom: 1px solid var(--color-cream);
 }
 
 .fbad-recipe-detail__meta-item {
@@ -839,27 +843,34 @@ a:hover {
 .fbad-recipe-detail__save-btn {
 	display: inline-flex;
 	align-items: center;
-	gap: var(--space-2);
-	padding: var(--space-3) var(--space-5);
-	background: var(--color-cta);
+	gap: var(--space-3);
+	padding: var(--space-4) var(--space-6);
+	background: var(--color-terracotta);
 	color: var(--color-white);
 	border: none;
-	border-radius: var(--radius-md);
-	font-size: var(--text-base);
-	font-weight: 600;
+	border-radius: var(--radius-lg);
+	font-size: var(--text-lg);
+	font-weight: 700;
 	cursor: pointer;
 	transition: all var(--transition-fast);
 	margin-left: auto;
+	box-shadow: 0 4px 12px rgba(216, 103, 79, 0.25);
+	font-family: var(--font-body);
 }
 
 .fbad-recipe-detail__save-btn:hover {
 	background: var(--color-charcoal);
-	transform: translateY(-2px);
-	box-shadow: var(--shadow-md);
+	transform: translateY(-3px);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.fbad-recipe-detail__save-btn:active {
+	transform: translateY(-1px);
 }
 
 .fbad-recipe-detail__save-btn.is-saved {
 	background: var(--color-sage);
+	box-shadow: 0 4px 12px rgba(180, 199, 180, 0.3);
 }
 
 .fbad-recipe-detail__save-btn.is-saved:hover {
@@ -867,8 +878,13 @@ a:hover {
 }
 
 .fbad-recipe-detail__save-btn span:first-child {
-	font-size: var(--text-xl);
+	font-size: 1.5rem;
 	line-height: 1;
+}
+
+.fbad-recipe-detail__save-text {
+	font-weight: 700;
+	letter-spacing: 0.01em;
 }
 
 .fbad-recipe-detail__main {
@@ -1094,6 +1110,20 @@ a:hover {
 
 	.fbad-recipe-detail__header {
 		margin-bottom: var(--space-4);
+	}
+
+	.fbad-recipe-detail__meta {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--space-3);
+	}
+
+	.fbad-recipe-detail__save-btn {
+		width: 100%;
+		justify-content: center;
+		margin-left: 0;
+		padding: var(--space-3) var(--space-5);
+		font-size: var(--text-base);
 	}
 
 	.fbad-recipe-detail__footer {
