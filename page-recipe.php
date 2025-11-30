@@ -4,10 +4,22 @@
  * Description: Displays individual recipes from Spoonacular API
  */
 
-get_header();
-
 // Check if recipe ID is provided
 $recipe_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+// Fetch recipe data early for title
+if ($recipe_id) {
+    $recipe_data = get_recipe_by_id($recipe_id);
+
+    // Set dynamic page title
+    if ($recipe_data && !is_wp_error($recipe_data)) {
+        add_filter('pre_get_document_title', function() use ($recipe_data) {
+            return $recipe_data['title'] . ' | ' . get_bloginfo('name');
+        });
+    }
+}
+
+get_header();
 
 if ($recipe_id) {
     // Fetch recipe from API
