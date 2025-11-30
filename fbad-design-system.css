@@ -843,34 +843,34 @@ a:hover {
 .fbad-recipe-detail__save-btn {
 	display: inline-flex;
 	align-items: center;
-	gap: var(--space-3);
-	padding: var(--space-4) var(--space-6);
+	gap: var(--space-2);
+	padding: var(--space-3) var(--space-5);
 	background: var(--color-terracotta);
 	color: var(--color-white);
 	border: none;
-	border-radius: var(--radius-lg);
-	font-size: var(--text-lg);
-	font-weight: 700;
+	border-radius: var(--radius-md);
+	font-size: var(--text-base);
+	font-weight: 600;
 	cursor: pointer;
 	transition: all var(--transition-fast);
 	margin-left: auto;
-	box-shadow: 0 4px 12px rgba(216, 103, 79, 0.25);
+	box-shadow: 0 2px 8px rgba(216, 103, 79, 0.2);
 	font-family: var(--font-body);
 }
 
 .fbad-recipe-detail__save-btn:hover {
 	background: var(--color-charcoal);
-	transform: translateY(-3px);
-	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .fbad-recipe-detail__save-btn:active {
-	transform: translateY(-1px);
+	transform: translateY(0);
 }
 
 .fbad-recipe-detail__save-btn.is-saved {
 	background: var(--color-sage);
-	box-shadow: 0 4px 12px rgba(180, 199, 180, 0.3);
+	box-shadow: 0 2px 8px rgba(180, 199, 180, 0.25);
 }
 
 .fbad-recipe-detail__save-btn.is-saved:hover {
@@ -878,13 +878,12 @@ a:hover {
 }
 
 .fbad-recipe-detail__save-btn span:first-child {
-	font-size: 1.5rem;
+	font-size: var(--text-xl);
 	line-height: 1;
 }
 
 .fbad-recipe-detail__save-text {
-	font-weight: 700;
-	letter-spacing: 0.01em;
+	font-weight: 600;
 }
 
 .fbad-recipe-detail__main {
@@ -1101,7 +1100,7 @@ a:hover {
 @media (max-width: 768px) {
 	.fbad-recipe-detail__title {
 		font-size: var(--text-4xl);
-		margin-bottom: var(--space-2);
+		margin-bottom: var(--space-3);
 	}
 
 	.fbad-recipe-detail__hero {
@@ -1113,17 +1112,14 @@ a:hover {
 	}
 
 	.fbad-recipe-detail__meta {
-		flex-direction: column;
-		align-items: flex-start;
 		gap: var(--space-3);
 	}
 
 	.fbad-recipe-detail__save-btn {
-		width: 100%;
+		flex-basis: 100%;
 		justify-content: center;
 		margin-left: 0;
-		padding: var(--space-3) var(--space-5);
-		font-size: var(--text-base);
+		margin-top: var(--space-2);
 	}
 
 	.fbad-recipe-detail__footer {
