@@ -269,6 +269,16 @@
 			
 			const $btn = $(this);
 			const recipeId = parseInt($btn.data('recipe-id'));
+
+			console.log('Save button clicked - Recipe ID:', recipeId);
+			console.log('Data attributes:', {
+				id: $btn.data('recipe-id'),
+				title: $btn.data('recipe-title'),
+				image: $btn.data('recipe-image'),
+				time: $btn.data('recipe-time'),
+				servings: $btn.data('recipe-servings')
+			});
+
 			const recipeData = {
 				id: recipeId,
 				title: $btn.data('recipe-title'),
@@ -276,8 +286,14 @@
 				readyInMinutes: $btn.data('recipe-time'),
 				servings: $btn.data('recipe-servings')
 			};
-			
+
+			console.log('Currently saved recipes:', SavedRecipes.getSaved());
+			console.log('Is this recipe saved?', SavedRecipes.isSaved(recipeId));
+
 			const isSaved = SavedRecipes.toggle(recipeId, recipeData);
+
+			console.log('After toggle - isSaved:', isSaved);
+			console.log('Saved recipes now:', SavedRecipes.getSaved());
 			
 			// Update button state
 			if (isSaved) {
