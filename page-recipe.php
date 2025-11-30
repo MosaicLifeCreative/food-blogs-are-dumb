@@ -1,0 +1,137 @@
+<?php
+/**
+ * Template Name: Recipe Detail Page
+ * Description: Displays individual recipes from Spoonacular API
+ */
+
+get_header();
+
+// Check if recipe ID is provided
+$recipe_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+if ($recipe_id) {
+    // Fetch recipe from API
+    $recipe_data = get_recipe_by_id($recipe_id);
+
+    if ($recipe_data && !is_wp_error($recipe_data)) {
+        $recipe = $recipe_data;
+        ?>
+
+        <article class="fbad-recipe-detail">
+            <!-- Hero Image -->
+            <div class="fbad-recipe-detail__hero">
+                <img src="<?php echo esc_url(str_replace('312x231', '636x393', $recipe['image'])); ?>"
+                     alt="<?php echo esc_attr($recipe['title']); ?>"
+                     class="fbad-recipe-detail__image">
+            </div>
+
+            <div class="fbad-recipe-detail__container">
+                <div class="fbad-recipe-detail__content">
+                    <!-- Title & Meta -->
+                    <header class="fbad-recipe-detail__header">
+                        <h1 class="fbad-recipe-detail__title"><?php echo esc_html($recipe['title']); ?></h1>
+
+                        <div class="fbad-recipe-detail__meta">
+                            <?php if (!empty($recipe['readyInMinutes'])): ?>
+                            <div class="fbad-recipe-detail__meta-item">
+                                <span class="fbad-recipe-detail__meta-icon">⏱️</span>
+                                <span><?php echo esc_html($recipe['readyInMinutes']); ?> mins</span>
+                            </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($recipe['servings'])): ?>
+                            <div class="fbad-recipe-detail__meta-item">
+                                <span class="fbad-recipe-detail__meta-icon">🍽️</span>
+                                <span><?php echo esc_html($recipe['servings']); ?> servings</span>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                    </header>
+
+                    <!-- Main Content -->
+                    <div class="fbad-recipe-detail__main">
+                        <!-- Ingredients Sidebar -->
+                        <aside class="fbad-recipe-detail__sidebar">
+                            <h2 class="fbad-recipe-detail__section-title">Ingredients</h2>
+
+                            <div class="fbad-ingredients-checklist">
+                                <?php if (!empty($recipe['extendedIngredients'])): ?>
+                                    <?php foreach ($recipe['extendedIngredients'] as $ingredient): ?>
+                                    <label class="fbad-ingredient">
+                                        <input type="checkbox" class="fbad-ingredient__checkbox">
+                                        <span class="fbad-ingredient__text">
+                                            <?php echo esc_html($ingredient['original']); ?>
+                                        </span>
+                                    </label>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </div>
+                        </aside>
+
+                        <!-- Instructions -->
+                        <div class="fbad-recipe-detail__instructions">
+                            <h2 class="fbad-recipe-detail__section-title">Instructions</h2>
+
+                            <?php if (!empty($recipe['analyzedInstructions'][0]['steps'])): ?>
+                            <div class="fbad-instructions">
+                                <?php foreach ($recipe['analyzedInstructions'][0]['steps'] as $step): ?>
+                                <div class="fbad-instructions__step">
+                                    <div class="fbad-instructions__number"><?php echo $step['number']; ?></div>
+                                    <div class="fbad-instructions__text">
+                                        <?php echo esc_html($step['step']); ?>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php elseif (!empty($recipe['instructions'])): ?>
+                            <div class="fbad-instructions__text">
+                                <?php echo wp_kses_post($recipe['instructions']); ?>
+                            </div>
+                            <?php else: ?>
+                            <p>No instructions available for this recipe.</p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <!-- Back Button -->
+                    <div class="fbad-recipe-detail__footer">
+                        <a href="<?php echo esc_url(home_url('/')); ?>" class="fbad-button fbad-button--secondary">
+                            ← Back to Recipes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <?php
+    } else {
+        // Recipe not found
+        ?>
+        <div class="fbad-error-page">
+            <div class="fbad-container">
+                <h1>Recipe Not Found</h1>
+                <p>Sorry, we couldn't find that recipe. It may have been removed or the ID is incorrect.</p>
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="fbad-button">
+                    ← Back to Homepage
+                </a>
+            </div>
+        </div>
+        <?php
+    }
+} else {
+    // No recipe ID provided
+    ?>
+    <div class="fbad-error-page">
+        <div class="fbad-container">
+            <h1>No Recipe Selected</h1>
+            <p>Please select a recipe from the homepage.</p>
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="fbad-button">
+                ← Back to Homepage
+            </a>
+        </div>
+    </div>
+    <?php
+}
+
+get_footer();
+?>

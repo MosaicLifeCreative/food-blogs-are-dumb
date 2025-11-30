@@ -189,7 +189,7 @@
 						` : ''}
 					</div>
 					<div class="fbad-recipe-card__footer">
-						<a href="?recipe=${recipe.id}" class="fbad-recipe-card__cta">
+						<a href="/recipe/?id=${recipe.id}" class="fbad-recipe-card__cta">
 							View Recipe →
 						</a>
 					</div>
