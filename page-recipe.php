@@ -20,7 +20,18 @@ if ($recipe_id) {
         <article class="fbad-recipe-detail">
             <!-- Hero Image -->
             <div class="fbad-recipe-detail__hero">
-                <img src="<?php echo esc_url(preg_replace('/\d{3}x\d{3}/', '636x393', $recipe['image'])); ?>"
+                <?php
+                // Get larger image - try multiple approaches
+                $image_url = $recipe['image'];
+                // Try to replace existing size
+                if (preg_match('/\d{3}x\d{3}/', $image_url)) {
+                    $image_url = preg_replace('/\d{3}x\d{3}/', '636x393', $image_url);
+                } elseif (preg_match('/-(\d{3})x(\d{3})\./', $image_url)) {
+                    // Format like image-312x231.jpg
+                    $image_url = preg_replace('/-\d{3}x\d{3}\./', '-636x393.', $image_url);
+                }
+                ?>
+                <img src="<?php echo esc_url($image_url); ?>"
                      alt="<?php echo esc_attr($recipe['title']); ?>"
                      class="fbad-recipe-detail__image">
             </div>

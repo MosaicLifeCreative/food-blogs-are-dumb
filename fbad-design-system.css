@@ -806,7 +806,7 @@ a:hover {
 
 .fbad-recipe-detail__header {
 	width: 100%;
-	margin-bottom: var(--space-8);
+	margin-bottom: var(--space-5);
 	padding: 0 var(--space-4);
 }
 
@@ -814,7 +814,7 @@ a:hover {
 	font-size: var(--text-5xl);
 	font-family: var(--font-display);
 	color: var(--color-charcoal);
-	margin-bottom: var(--space-4);
+	margin-bottom: var(--space-3);
 	line-height: 1.2;
 }
 
@@ -823,6 +823,7 @@ a:hover {
 	gap: var(--space-6);
 	font-size: var(--text-base);
 	color: var(--color-text-light);
+	margin-bottom: 0;
 }
 
 .fbad-recipe-detail__meta-item {
@@ -870,7 +871,8 @@ a:hover {
 
 .fbad-recipe-detail__footer {
 	text-align: center;
-	padding: var(--space-6) 0;
+	padding: var(--space-4) 0;
+	margin-top: var(--space-4);
 }
 
 /* Ingredients Checklist */
@@ -1011,6 +1013,7 @@ a:hover {
 @media (max-width: 768px) {
 	.fbad-recipe-detail__title {
 		font-size: var(--text-4xl);
+		margin-bottom: var(--space-2);
 	}
 
 	.fbad-recipe-detail__hero {
@@ -1019,6 +1022,11 @@ a:hover {
 
 	.fbad-recipe-detail__header {
 		margin-bottom: var(--space-4);
+	}
+
+	.fbad-recipe-detail__footer {
+		padding: var(--space-3) 0;
+		margin-top: var(--space-3);
 	}
 
 	.fbad-recipe-detail__image {
