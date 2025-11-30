@@ -358,10 +358,12 @@ a:hover {
    ========================================================================== */
 
 .fbad-filters {
-	display: flex;
+	display: flex !important;
 	flex-wrap: wrap;
 	gap: var(--space-3);
 	margin: var(--space-6) 0;
+	justify-content: center !important;
+	align-items: center;
 }
 
 .fbad-filter-pill {
