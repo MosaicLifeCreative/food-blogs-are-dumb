@@ -191,6 +191,31 @@ add_action('wp_ajax_get_recipe_by_id', 'ajax_get_recipe_by_id');
 add_action('wp_ajax_nopriv_get_recipe_by_id', 'ajax_get_recipe_by_id');
 
 /**
+ * AJAX handler for getting popular recipes
+ */
+function ajax_get_popular_recipes() {
+    // Verify nonce
+    check_ajax_referer('food_blogs_nonce', 'nonce');
+
+    $number = isset($_POST['number']) ? intval($_POST['number']) : 9;
+
+    // Get popular recipes using the complexSearch endpoint with sort=popularity
+    $results = search_recipes(array(
+        'number' => $number,
+        'sort' => 'popularity',
+        'sortDirection' => 'desc'
+    ));
+
+    if (is_wp_error($results)) {
+        wp_send_json_error($results->get_error_message());
+    } else {
+        wp_send_json_success($results);
+    }
+}
+add_action('wp_ajax_get_popular_recipes', 'ajax_get_popular_recipes');
+add_action('wp_ajax_nopriv_get_popular_recipes', 'ajax_get_popular_recipes');
+
+/**
  * Custom Post Type Registration (if needed for storing recipes)
  */
 // Uncomment if you want to create a custom post type for recipes

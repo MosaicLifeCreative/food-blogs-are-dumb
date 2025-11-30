@@ -259,6 +259,45 @@
 	}
 
 	// ==========================================================================
+	// LOAD INITIAL RECIPES
+	// ==========================================================================
+
+	function loadInitialRecipes() {
+		const $resultsContainer = $('.fbad-recipe-grid');
+
+		// Only load if the grid exists and is empty
+		if ($resultsContainer.length === 0 || $resultsContainer.children().length > 0) {
+			return;
+		}
+
+		// Show loading
+		$resultsContainer.html('<div class="fbad-loading">Loading popular recipes...</div>');
+
+		// Fetch popular recipes
+		$.ajax({
+			url: foodBlogsData.ajaxUrl,
+			type: 'POST',
+			data: {
+				action: 'get_popular_recipes',
+				nonce: foodBlogsData.nonce,
+				number: 9
+			},
+			success: function(response) {
+				if (response.success && response.data.results && response.data.results.length > 0) {
+					const html = response.data.results.map(recipe => renderRecipeCard(recipe)).join('');
+					$resultsContainer.html(html);
+					initSaveButtons();
+				} else {
+					$resultsContainer.html('<div class="fbad-loading">Use the search box above to find recipes!</div>');
+				}
+			},
+			error: function() {
+				$resultsContainer.html('<div class="fbad-loading">Use the search box above to find recipes!</div>');
+			}
+		});
+	}
+
+	// ==========================================================================
 	// SAVE BUTTON FUNCTIONALITY
 	// ==========================================================================
 
@@ -521,7 +560,8 @@
 		initFilters();
 		initIngredientsChecklist();
 		initSavedRecipesModal();
-		
+		loadInitialRecipes();
+
 		console.log('🍳 Food Blogs Are Dumb initialized!');
 	});
 
