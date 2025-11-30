@@ -794,13 +794,20 @@ a:hover {
 	padding: 0 var(--space-4);
 }
 
+.fbad-recipe-detail__content {
+	/* Content flows vertically: header, then main grid */
+	display: flex;
+	flex-direction: column;
+}
+
 .fbad-recipe-detail__hero {
 	margin-bottom: var(--space-6);
 }
 
 .fbad-recipe-detail__header {
-	text-align: center;
+	width: 100%;
 	margin-bottom: var(--space-8);
+	padding: 0 var(--space-4);
 }
 
 .fbad-recipe-detail__title {
@@ -813,7 +820,6 @@ a:hover {
 
 .fbad-recipe-detail__meta {
 	display: flex;
-	justify-content: center;
 	gap: var(--space-6);
 	font-size: var(--text-base);
 	color: var(--color-text-light);
