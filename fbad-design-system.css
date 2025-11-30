@@ -806,26 +806,33 @@ a:hover {
 
 .fbad-recipe-detail__header {
 	width: 100%;
-	margin-bottom: var(--space-5);
+	margin-bottom: var(--space-4);
 	padding: 0 var(--space-4);
+}
+
+.fbad-recipe-detail__title-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: var(--space-4);
+	margin-bottom: var(--space-3);
 }
 
 .fbad-recipe-detail__title {
 	font-size: var(--text-5xl);
 	font-family: var(--font-display);
 	color: var(--color-charcoal);
-	margin-bottom: var(--space-3);
+	margin: 0;
 	line-height: 1.2;
+	flex: 1;
 }
 
 .fbad-recipe-detail__meta {
 	display: flex;
-	flex-wrap: wrap;
 	align-items: center;
-	gap: var(--space-3);
+	gap: var(--space-4);
 	font-size: var(--text-base);
 	color: var(--color-text-light);
-	margin-bottom: var(--space-6);
 }
 
 .fbad-recipe-detail__meta-item {
@@ -841,8 +848,8 @@ a:hover {
 .fbad-recipe-detail__save-btn {
 	display: inline-flex;
 	align-items: center;
-	gap: var(--space-3);
-	padding: 12px 28px;
+	gap: var(--space-2);
+	padding: var(--space-3) var(--space-6);
 	background: var(--color-terracotta);
 	color: var(--color-white);
 	border: none;
@@ -851,9 +858,10 @@ a:hover {
 	font-weight: 600;
 	cursor: pointer;
 	transition: all var(--transition-fast);
-	margin-left: auto;
 	box-shadow: 0 2px 8px rgba(216, 103, 79, 0.2);
 	font-family: var(--font-body);
+	flex-shrink: 0;
+	white-space: nowrap;
 }
 
 .fbad-recipe-detail__save-btn:hover {
@@ -1097,8 +1105,12 @@ a:hover {
 
 @media (max-width: 768px) {
 	.fbad-recipe-detail__title {
-		font-size: var(--text-4xl);
-		margin-bottom: var(--space-3);
+		font-size: var(--text-3xl);
+	}
+
+	.fbad-recipe-detail__title-row {
+		flex-direction: column;
+		gap: var(--space-3);
 	}
 
 	.fbad-recipe-detail__hero {
@@ -1110,14 +1122,12 @@ a:hover {
 	}
 
 	.fbad-recipe-detail__meta {
-		gap: var(--space-2);
+		gap: var(--space-3);
 	}
 
 	.fbad-recipe-detail__save-btn {
-		flex-basis: 100%;
+		width: 100%;
 		justify-content: center;
-		margin-left: 0;
-		margin-top: var(--space-3);
 	}
 
 	.fbad-recipe-detail__footer {
