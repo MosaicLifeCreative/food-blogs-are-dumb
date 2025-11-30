@@ -293,10 +293,10 @@
 			const $pill = $(this);
 			const filter = $pill.data('filter');
 			const value = $pill.data('value');
-			
+
 			// Toggle active state
 			$pill.toggleClass('is-active');
-			
+
 			// Get all active filters
 			const activeFilters = {};
 			$('.fbad-filter-pill.is-active').each(function() {
@@ -304,30 +304,37 @@
 				const v = $(this).data('value');
 				activeFilters[f] = v;
 			});
-			
-			// Get current search query
-			const query = $('.fbad-search__input').val().trim();
-			
+
+			// Get current search query - support both search box types
+			const $searchInput = $('.fbad-search__input, .fbad-search-fullwidth__input');
+			const query = $searchInput.val() ? $searchInput.val().trim() : '';
+
 			if (!query && Object.keys(activeFilters).length === 0) {
 				return; // No search or filters active
 			}
-			
+
 			// Search with filters
-			$('.fbad-recipe-grid').html('<div class="fbad-loading">Filtering recipes...</div>');
-			
+			const $resultsContainer = $('.fbad-recipe-grid');
+			$resultsContainer.html('<div class="fbad-loading">Filtering recipes...</div>');
+
 			RecipeAPI.search(query || '', activeFilters)
 				.then(data => {
 					if (data.results && data.results.length > 0) {
 						const html = data.results.map(recipe => renderRecipeCard(recipe)).join('');
-						$('.fbad-recipe-grid').html(html);
+						$resultsContainer.html(html);
 						initSaveButtons();
+
+						// Smooth scroll to results
+						setTimeout(() => {
+							$resultsContainer[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+						}, 100);
 					} else {
-						$('.fbad-recipe-grid').html('<div class="fbad-loading">No recipes found with these filters.</div>');
+						$resultsContainer.html('<div class="fbad-loading">No recipes found with these filters.</div>');
 					}
 				})
 				.catch(error => {
 					console.error('Filter error:', error);
-					$('.fbad-recipe-grid').html('<div class="fbad-error">Error filtering recipes.</div>');
+					$resultsContainer.html('<div class="fbad-error">Error filtering recipes.</div>');
 				});
 		});
 	}
