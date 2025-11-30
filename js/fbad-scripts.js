@@ -486,13 +486,27 @@
 			// Search with filters
 			const $resultsContainer = $('.fbad-recipe-grid');
 			$resultsContainer.html('<div class="fbad-loading">Filtering recipes...</div>');
+			hideLoadMoreButton();
 
 			RecipeAPI.search(query || '', activeFilters)
 				.then(data => {
 					if (data.results && data.results.length > 0) {
 						const html = data.results.map(recipe => renderRecipeCard(recipe)).join('');
 						$resultsContainer.html(html);
+
+						// Update search state
+						SearchState.searchType = 'filter';
+						SearchState.currentQuery = query;
+						SearchState.currentFilters = activeFilters;
+						SearchState.currentOffset = 0;
+
+						// Re-initialize save buttons
 						initSaveButtons();
+
+						// Show load more if we got 9 results
+						if (data.results.length === 9) {
+							showLoadMoreButton();
+						}
 
 						// Smooth scroll to results
 						setTimeout(() => {

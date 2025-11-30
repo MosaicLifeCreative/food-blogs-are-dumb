@@ -124,9 +124,14 @@ function ajax_search_recipes() {
     check_ajax_referer('food_blogs_nonce', 'nonce');
 
     $query = isset($_POST['query']) ? sanitize_text_field($_POST['query']) : '';
+    $number = isset($_POST['number']) ? intval($_POST['number']) : 9;
+    $offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
 
     // Build search parameters
-    $search_params = array();
+    $search_params = array(
+        'number' => $number,
+        'offset' => $offset
+    );
 
     // Add query if provided
     if (!empty($query)) {
@@ -149,7 +154,7 @@ function ajax_search_recipes() {
     }
 
     // Require either a query or at least one filter
-    if (empty($search_params)) {
+    if (empty($query) && empty($search_params['diet']) && empty($search_params['cuisine']) && empty($search_params['intolerances'])) {
         wp_send_json_error('No search query or filters provided');
         return;
     }
