@@ -161,7 +161,7 @@
 		return `
 			<div class="fbad-recipe-card">
 				<div class="fbad-recipe-card__image-wrapper">
-					<img class="fbad-recipe-card__image" src="${recipe.image.replace('.jpg', '-636x393.jpg')}" alt="${recipe.title}">
+					<img class="fbad-recipe-card__image" src="${recipe.image.replace(/\d{3}x\d{3}/, '636x393')}" alt="${recipe.title}">
 					<button class="fbad-recipe-card__save-btn ${isSaved ? 'is-saved' : ''}" 
 							data-recipe-id="${recipe.id}"
 							data-recipe-title="${recipe.title}"
