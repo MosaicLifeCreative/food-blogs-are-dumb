@@ -106,7 +106,7 @@ function get_recipe_by_id($recipe_id, $include_nutrition = true) {
  */
 function search_recipes($args = array()) {
     $defaults = array(
-        'number' => 10,
+        'number' => 9,
         'offset' => 0,
         'addRecipeInformation' => 'true'
     );

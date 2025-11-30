@@ -265,8 +265,13 @@
 	function loadInitialRecipes() {
 		const $resultsContainer = $('.fbad-recipe-grid');
 
-		// Only load if the grid exists and is empty
-		if ($resultsContainer.length === 0 || $resultsContainer.children().length > 0) {
+		// Only load if the grid exists
+		if ($resultsContainer.length === 0) {
+			return;
+		}
+
+		// Skip if there are already recipe cards loaded
+		if ($resultsContainer.find('.fbad-recipe-card').length > 0) {
 			return;
 		}
 
