@@ -859,33 +859,34 @@ a:hover {
 
 /* Detail-style save button (pill with icon + text) */
 .fbad-save-btn--detail, .fbad-recipe-detail__save-btn {
+	/* Match the primary CTA (View Recipe) for visual consistency */
 	display: inline-flex;
 	align-items: center;
-	gap: var(--space-3); /* 12px - gives a little more breathing room */
-	padding: 12px 20px;
-	background: var(--color-terracotta);
+	gap: var(--space-2);
+	padding: var(--space-3) var(--space-5); /* same as .fbad-recipe-card__cta */
+	background: var(--color-cta);
 	color: var(--color-white);
 	border: none;
 	border-radius: var(--radius-md);
-	font-size: var(--text-base);
-	font-weight: 600;
+	font-size: var(--text-sm);
+	font-weight: 500; /* match cta weight */
 	cursor: pointer;
 	transition: all var(--transition-fast);
-	box-shadow: 0 2px 8px rgba(216, 103, 79, 0.2);
+	box-shadow: var(--shadow-sm);
 	font-family: var(--font-body);
 	flex-shrink: 0;
 	/* Override card-sized button defaults to avoid being condensed when both classes exist */
 	position: static;
 	width: auto;
 	height: auto;
-	min-width: 140px; /* increase room for icon + text on desktop */
+	min-width: 140px; /* maintain reasonable width for icon + text on desktop */
 	white-space: nowrap;
 }
 
 .fbad-save-btn--detail:hover, .fbad-recipe-detail__save-btn:hover {
 	background: var(--color-charcoal);
 	transform: translateY(-2px);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	box-shadow: var(--shadow-md);
 }
 
 .fbad-recipe-detail__save-btn:active {
@@ -894,7 +895,8 @@ a:hover {
 
 .fbad-save-btn--detail.is-saved, .fbad-recipe-detail__save-btn.is-saved {
 	background: var(--color-sage);
-	box-shadow: 0 2px 8px rgba(180, 199, 180, 0.25);
+	box-shadow: var(--shadow-sm);
+	color: var(--color-charcoal); /* ensure button text is dark for contrast */
 }
 
 .fbad-save-btn--detail.is-saved:hover, .fbad-recipe-detail__save-btn.is-saved:hover {
@@ -902,25 +904,33 @@ a:hover {
 }
 
 .fbad-save-btn--detail.is-saved > .fbad-save-icon, .fbad-recipe-detail__save-btn.is-saved > span:first-child {
-	background: var(--color-white);
-	color: var(--color-sage);
+	background: transparent; /* remove icon white circle */
+	color: inherit; /* emoji color should display natively */
 }
 
+/* Small inline icon inside buttons: no circular white background */
+/* Inline-style icon for CTAs: let emoji render naturally with spacing */
 .fbad-save-btn > .fbad-save-icon, .fbad-recipe-detail__save-btn > span:first-child {
 	font-size: 22px;
 	line-height: 1;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 32px;
-	height: 32px;
-	background: rgba(255, 255, 255, 0.05);
-	border-radius: var(--radius-full);
+	width: auto;
+	height: auto;
+	background: transparent;
+	border-radius: 0;
+	margin-right: var(--space-2);
 }
 
 .fbad-recipe-detail__save-text {
 	font-weight: 600;
 	white-space: nowrap;
+}
+
+.fbad-save-btn--detail.is-saved .fbad-recipe-detail__save-text,
+.fbad-recipe-detail__save-btn.is-saved .fbad-recipe-detail__save-text {
+	color: var(--color-charcoal);
 }
 
 .fbad-recipe-detail__main {
@@ -1379,4 +1389,51 @@ a:hover {
 	clip: rect(0 0 0 0) !important;
 	white-space: nowrap !important;
 	border: 0 !important;
+}
+
+/* Ensure card save button icons remain compact */
+.fbad-save-btn--card > .fbad-save-icon {
+	width: 20px;
+	height: 20px;
+	background: transparent; /* keep card button clean */
+	border-radius: 0; /* no circular icon on card */
+}
+
+/* Focus state for keyboard users - match CTA styles */
+.fbad-save-btn--detail:focus, .fbad-recipe-detail__save-btn:focus {
+	outline: none;
+	box-shadow: 0 0 0 4px rgba(212, 132, 106, 0.12);
+}
+
+/* Specificity override to ensure detailed save button matches primary CTA across themes */
+button.fbad-save-btn.fbad-save-btn--detail,
+button.fbad-recipe-detail__save-btn {
+	background-color: var(--color-cta) !important;
+	color: var(--color-white) !important;
+	border: none !important;
+	padding: var(--space-3) var(--space-5) !important;
+	min-width: 140px !important;
+	box-shadow: var(--shadow-sm) !important;
+}
+
+button.fbad-save-btn.fbad-save-btn--detail:hover,
+button.fbad-recipe-detail__save-btn:hover {
+	background-color: var(--color-charcoal) !important;
+	box-shadow: var(--shadow-md) !important;
+}
+
+button.fbad-save-btn.fbad-save-btn--detail.is-saved,
+button.fbad-recipe-detail__save-btn.is-saved {
+	background-color: var(--color-sage) !important;
+	box-shadow: var(--shadow-sm) !important;
+}
+
+button.fbad-save-btn.fbad-save-btn--detail.is-saved > .fbad-save-icon,
+button.fbad-recipe-detail__save-btn.is-saved > .fbad-save-icon {
+	background: transparent !important; /* show native emoji without backdrop */
+	color: inherit !important;
+	border-radius: 0 !important;
+	width: auto !important;
+	height: auto !important;
+	margin-right: var(--space-2) !important;
 }
