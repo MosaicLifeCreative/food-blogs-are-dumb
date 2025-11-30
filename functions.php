@@ -198,10 +198,12 @@ function ajax_get_popular_recipes() {
     check_ajax_referer('food_blogs_nonce', 'nonce');
 
     $number = isset($_POST['number']) ? intval($_POST['number']) : 9;
+    $offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
 
     // Get popular recipes using the complexSearch endpoint with sort=popularity
     $results = search_recipes(array(
         'number' => $number,
+        'offset' => $offset,
         'sort' => 'popularity',
         'sortDirection' => 'desc'
     ));

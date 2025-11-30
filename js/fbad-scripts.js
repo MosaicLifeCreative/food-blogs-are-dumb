@@ -312,11 +312,13 @@
 			if (SearchState.searchType === 'search') {
 				loadPromise = RecipeAPI.search(SearchState.currentQuery, {
 					...SearchState.currentFilters,
+					number: 9,
 					offset: SearchState.currentOffset
 				});
 			} else if (SearchState.searchType === 'filter') {
 				loadPromise = RecipeAPI.search(SearchState.currentQuery || '', {
 					...SearchState.currentFilters,
+					number: 9,
 					offset: SearchState.currentOffset
 				});
 			} else {
