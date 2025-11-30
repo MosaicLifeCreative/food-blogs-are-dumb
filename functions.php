@@ -122,16 +122,40 @@ function search_recipes($args = array()) {
 function ajax_search_recipes() {
     // Verify nonce
     check_ajax_referer('food_blogs_nonce', 'nonce');
-    
+
     $query = isset($_POST['query']) ? sanitize_text_field($_POST['query']) : '';
-    
-    if (empty($query)) {
-        wp_send_json_error('No search query provided');
+
+    // Build search parameters
+    $search_params = array();
+
+    // Add query if provided
+    if (!empty($query)) {
+        $search_params['query'] = $query;
+    }
+
+    // Add diet filter if provided
+    if (isset($_POST['diet']) && !empty($_POST['diet'])) {
+        $search_params['diet'] = sanitize_text_field($_POST['diet']);
+    }
+
+    // Add cuisine filter if provided
+    if (isset($_POST['cuisine']) && !empty($_POST['cuisine'])) {
+        $search_params['cuisine'] = sanitize_text_field($_POST['cuisine']);
+    }
+
+    // Add intolerances if provided
+    if (isset($_POST['intolerances']) && !empty($_POST['intolerances'])) {
+        $search_params['intolerances'] = sanitize_text_field($_POST['intolerances']);
+    }
+
+    // Require either a query or at least one filter
+    if (empty($search_params)) {
+        wp_send_json_error('No search query or filters provided');
         return;
     }
-    
-    $results = search_recipes(array('query' => $query));
-    
+
+    $results = search_recipes($search_params);
+
     if (is_wp_error($results)) {
         wp_send_json_error($results->get_error_message());
     } else {
