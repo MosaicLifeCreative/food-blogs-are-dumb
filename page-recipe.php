@@ -11,11 +11,25 @@ $recipe_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 if ($recipe_id) {
     $recipe_data = get_recipe_by_id($recipe_id);
 
-    // Set dynamic page title
+    // Set dynamic page title - multiple filters for compatibility
     if ($recipe_data && !is_wp_error($recipe_data)) {
-        add_filter('pre_get_document_title', function() use ($recipe_data) {
-            return $recipe_data['title'] . ' | ' . get_bloginfo('name');
-        });
+        $recipe_title = $recipe_data['title'];
+
+        // Modern WordPress (4.4+)
+        add_filter('pre_get_document_title', function() use ($recipe_title) {
+            return $recipe_title . ' | ' . get_bloginfo('name');
+        }, 10);
+
+        // Fallback for older themes
+        add_filter('wp_title', function($title) use ($recipe_title) {
+            return $recipe_title . ' | ' . get_bloginfo('name');
+        }, 10, 2);
+
+        // Divi theme compatibility
+        add_filter('document_title_parts', function($title_parts) use ($recipe_title) {
+            $title_parts['title'] = $recipe_title;
+            return $title_parts;
+        }, 10);
     }
 }
 

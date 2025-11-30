@@ -871,8 +871,8 @@ a:hover {
 
 .fbad-recipe-detail__footer {
 	text-align: center;
-	padding: var(--space-2) 0;
-	margin-top: var(--space-3);
+	padding: 0;
+	margin-top: var(--space-2);
 }
 
 /* Ingredients Checklist */
