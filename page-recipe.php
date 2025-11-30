@@ -20,7 +20,7 @@ if ($recipe_id) {
         <article class="fbad-recipe-detail">
             <!-- Hero Image -->
             <div class="fbad-recipe-detail__hero">
-                <img src="<?php echo esc_url(str_replace('312x231', '636x393', $recipe['image'])); ?>"
+                <img src="<?php echo esc_url(preg_replace('/\d{3}x\d{3}/', '636x393', $recipe['image'])); ?>"
                      alt="<?php echo esc_attr($recipe['title']); ?>"
                      class="fbad-recipe-detail__image">
             </div>

@@ -785,6 +785,268 @@ a:hover {
 }
 
 /* ==========================================================================
+   RECIPE DETAIL PAGE - Additional Styles
+   ========================================================================== */
+
+.fbad-recipe-detail__container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 var(--space-4);
+}
+
+.fbad-recipe-detail__hero {
+	margin-bottom: var(--space-6);
+}
+
+.fbad-recipe-detail__header {
+	text-align: center;
+	margin-bottom: var(--space-8);
+}
+
+.fbad-recipe-detail__title {
+	font-size: var(--text-5xl);
+	font-family: var(--font-display);
+	color: var(--color-charcoal);
+	margin-bottom: var(--space-4);
+	line-height: 1.2;
+}
+
+.fbad-recipe-detail__meta {
+	display: flex;
+	justify-content: center;
+	gap: var(--space-6);
+	font-size: var(--text-base);
+	color: var(--color-text-light);
+}
+
+.fbad-recipe-detail__meta-item {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+}
+
+.fbad-recipe-detail__meta-icon {
+	font-size: var(--text-xl);
+}
+
+.fbad-recipe-detail__main {
+	display: grid;
+	grid-template-columns: 350px 1fr;
+	gap: var(--space-8);
+	margin-bottom: var(--space-8);
+}
+
+.fbad-recipe-detail__sidebar {
+	background: var(--color-white);
+	padding: var(--space-6);
+	border-radius: var(--radius-lg);
+	box-shadow: var(--shadow-md);
+	height: fit-content;
+	position: sticky;
+	top: var(--space-6);
+}
+
+.fbad-recipe-detail__section-title {
+	font-size: var(--text-2xl);
+	font-family: var(--font-display);
+	color: var(--color-charcoal);
+	margin-bottom: var(--space-5);
+	border-bottom: 2px solid var(--color-sage);
+	padding-bottom: var(--space-3);
+}
+
+.fbad-recipe-detail__instructions {
+	background: var(--color-white);
+	padding: var(--space-6);
+	border-radius: var(--radius-lg);
+	box-shadow: var(--shadow-md);
+}
+
+.fbad-recipe-detail__footer {
+	text-align: center;
+	padding: var(--space-6) 0;
+}
+
+/* Ingredients Checklist */
+.fbad-ingredients-checklist {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+}
+
+.fbad-ingredient {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-3);
+	padding: var(--space-2) 0;
+	border-bottom: 1px solid var(--color-cream);
+	cursor: pointer;
+	transition: background var(--transition-fast);
+}
+
+.fbad-ingredient:last-child {
+	border-bottom: none;
+}
+
+.fbad-ingredient:hover {
+	background: rgba(180, 199, 180, 0.1);
+	padding-left: var(--space-2);
+	padding-right: var(--space-2);
+	margin-left: calc(var(--space-2) * -1);
+	margin-right: calc(var(--space-2) * -1);
+	border-radius: var(--radius-sm);
+}
+
+.fbad-ingredient__checkbox {
+	width: 20px;
+	height: 20px;
+	margin-top: 2px;
+	accent-color: var(--color-sage);
+	cursor: pointer;
+	flex-shrink: 0;
+}
+
+.fbad-ingredient__text {
+	font-size: var(--text-base);
+	line-height: 1.6;
+	color: var(--color-text);
+}
+
+.fbad-ingredient__checkbox:checked + .fbad-ingredient__text {
+	text-decoration: line-through;
+	color: var(--color-text-light);
+}
+
+/* Instructions Steps */
+.fbad-instructions {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-5);
+}
+
+.fbad-instructions__step {
+	display: grid;
+	grid-template-columns: 50px 1fr;
+	gap: var(--space-4);
+	padding: var(--space-4);
+	border-radius: var(--radius-md);
+	transition: background var(--transition-fast);
+}
+
+.fbad-instructions__step:hover {
+	background: var(--color-cream);
+}
+
+.fbad-instructions__number {
+	width: 50px;
+	height: 50px;
+	background: var(--color-sage);
+	color: var(--color-white);
+	border-radius: var(--radius-full);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: var(--text-xl);
+	font-family: var(--font-display);
+	font-weight: 700;
+	flex-shrink: 0;
+}
+
+.fbad-instructions__text {
+	font-size: var(--text-base);
+	line-height: 1.8;
+	color: var(--color-text);
+	padding-top: var(--space-2);
+}
+
+/* Buttons */
+.fbad-button {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	padding: var(--space-4) var(--space-6);
+	background: var(--color-cta);
+	color: var(--color-white);
+	border: none;
+	border-radius: var(--radius-md);
+	font-size: var(--text-base);
+	font-weight: 600;
+	font-family: var(--font-body);
+	text-decoration: none;
+	cursor: pointer;
+	transition: all var(--transition-fast);
+}
+
+.fbad-button:hover {
+	background: var(--color-charcoal);
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-md);
+}
+
+.fbad-button--secondary {
+	background: var(--color-sage);
+}
+
+.fbad-button--secondary:hover {
+	background: var(--color-charcoal);
+}
+
+/* Responsive - Recipe Detail */
+@media (max-width: 1024px) {
+	.fbad-recipe-detail__main {
+		grid-template-columns: 1fr;
+	}
+
+	.fbad-recipe-detail__sidebar {
+		position: static;
+	}
+}
+
+@media (max-width: 768px) {
+	.fbad-recipe-detail__title {
+		font-size: var(--text-4xl);
+	}
+
+	.fbad-recipe-detail__hero {
+		margin-bottom: var(--space-4);
+	}
+
+	.fbad-recipe-detail__header {
+		margin-bottom: var(--space-4);
+	}
+
+	.fbad-recipe-detail__image {
+		height: 300px;
+	}
+
+	.fbad-recipe-detail__main {
+		gap: var(--space-4);
+	}
+
+	.fbad-recipe-detail__sidebar,
+	.fbad-recipe-detail__instructions {
+		padding: var(--space-4);
+	}
+
+	.fbad-recipe-detail__section-title {
+		font-size: var(--text-xl);
+		margin-bottom: var(--space-4);
+	}
+
+	.fbad-instructions__step {
+		grid-template-columns: 40px 1fr;
+		gap: var(--space-3);
+		padding: var(--space-3);
+	}
+
+	.fbad-instructions__number {
+		width: 40px;
+		height: 40px;
+		font-size: var(--text-lg);
+	}
+}
+
+/* ==========================================================================
    SAVED RECIPES BADGE
    ========================================================================== */
 
