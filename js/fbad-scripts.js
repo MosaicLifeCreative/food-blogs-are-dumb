@@ -401,18 +401,42 @@
 	}
 
 	// ==========================================================================
+	// SAVED RECIPES LIST ITEM
+	// ==========================================================================
+
+	function renderSavedRecipeListItem(recipe) {
+		return `
+			<div class="fbad-saved-item">
+				<div class="fbad-saved-item__content">
+					<h3 class="fbad-saved-item__title">${recipe.title}</h3>
+					<div class="fbad-saved-item__meta">
+						${recipe.readyInMinutes ? `<span>⏱️ ${recipe.readyInMinutes} mins</span>` : ''}
+						${recipe.servings ? `<span>🍽️ ${recipe.servings} servings</span>` : ''}
+					</div>
+				</div>
+				<div class="fbad-saved-item__actions">
+					<a href="/recipe/?id=${recipe.id}" class="fbad-saved-item__view">View Recipe →</a>
+					<button class="fbad-saved-item__remove" data-recipe-id="${recipe.id}" aria-label="Remove recipe">
+						<span>❤️</span>
+					</button>
+				</div>
+			</div>
+		`;
+	}
+
+	// ==========================================================================
 	// SAVED RECIPES MODAL
 	// ==========================================================================
 
 	function initSavedRecipesModal() {
 		$('.fbad-saved-badge').on('click', function() {
 			const saved = SavedRecipes.getSaved();
-			
+
 			if (saved.length === 0) {
 				showToast('No saved recipes yet!');
 				return;
 			}
-			
+
 			// Create modal HTML
 			const modalHtml = `
 				<div class="fbad-modal">
@@ -423,34 +447,62 @@
 							<button class="fbad-modal__close">×</button>
 						</div>
 						<div class="fbad-modal__body">
-							<div class="fbad-recipe-grid">
-								${saved.map(recipe => renderRecipeCard(recipe)).join('')}
+							<div class="fbad-saved-list">
+								${saved.map(recipe => renderSavedRecipeListItem(recipe)).join('')}
 							</div>
 						</div>
 					</div>
 				</div>
 			`;
-			
+
 			// Add modal CSS
 			if ($('.fbad-modal-styles').length === 0) {
 				$('<style class="fbad-modal-styles">')
 					.text(`
 						.fbad-modal { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; }
 						.fbad-modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.7); }
-						.fbad-modal__content { position: relative; background: var(--color-cream); max-width: 1200px; max-height: 90vh; overflow-y: auto; border-radius: 16px; padding: 32px; }
-						.fbad-modal__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-						.fbad-modal__close { background: none; border: none; font-size: 32px; cursor: pointer; color: var(--color-charcoal); }
+						.fbad-modal__content { position: relative; background: var(--color-cream); max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; border-radius: 16px; padding: 32px; }
+						.fbad-modal__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 2px solid var(--color-sage); padding-bottom: 16px; }
+						.fbad-modal__header h2 { margin: 0; font-family: var(--font-display); color: var(--color-charcoal); }
+						.fbad-modal__close { background: none; border: none; font-size: 32px; cursor: pointer; color: var(--color-charcoal); padding: 0; line-height: 1; }
 						.fbad-modal__close:hover { color: var(--color-cta); }
+						.fbad-saved-list { display: flex; flex-direction: column; gap: 12px; }
+						.fbad-saved-item { display: flex; justify-content: space-between; align-items: center; padding: 16px; background: var(--color-white); border-radius: 8px; border: 1px solid rgba(180, 199, 180, 0.3); transition: all 0.2s ease; }
+						.fbad-saved-item:hover { border-color: var(--color-sage); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+						.fbad-saved-item__content { flex: 1; }
+						.fbad-saved-item__title { margin: 0 0 8px 0; font-size: 16px; font-weight: 600; color: var(--color-charcoal); }
+						.fbad-saved-item__meta { display: flex; gap: 16px; font-size: 14px; color: var(--color-text-light); }
+						.fbad-saved-item__actions { display: flex; align-items: center; gap: 12px; }
+						.fbad-saved-item__view { padding: 8px 16px; background: var(--color-cta); color: white; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 600; transition: all 0.2s ease; white-space: nowrap; }
+						.fbad-saved-item__view:hover { background: var(--color-charcoal); transform: translateY(-1px); }
+						.fbad-saved-item__remove { background: none; border: none; font-size: 24px; cursor: pointer; padding: 4px; line-height: 1; transition: transform 0.2s ease; }
+						.fbad-saved-item__remove:hover { transform: scale(1.2); }
 					`)
 					.appendTo('head');
 			}
 			
 			// Add modal to page
 			$('body').append(modalHtml);
-			
-			// Re-initialize save buttons
-			initSaveButtons();
-			
+
+			// Remove button handler
+			$('.fbad-saved-item__remove').on('click', function() {
+				const recipeId = parseInt($(this).data('recipe-id'));
+				SavedRecipes.remove(recipeId);
+
+				// Remove the item from the list
+				$(this).closest('.fbad-saved-item').fadeOut(300, function() {
+					$(this).remove();
+
+					// If no more items, close modal
+					if ($('.fbad-saved-item').length === 0) {
+						$('.fbad-modal').remove();
+						showToast('All recipes removed!');
+					}
+				});
+
+				showToast('Recipe removed!');
+			});
+
 			// Close modal handlers
 			$('.fbad-modal__close, .fbad-modal__backdrop').on('click', function() {
 				$('.fbad-modal').remove();
