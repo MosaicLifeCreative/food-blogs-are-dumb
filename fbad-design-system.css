@@ -437,7 +437,7 @@ a:hover {
 	justify-content: center;
 	gap: var(--space-6);
 	flex-wrap: wrap;
-	margin-bottom: var(--space-6);
+	margin-bottom: var(--space-1);
 }
 
 .fbad-recipe-detail__meta-item {
@@ -466,7 +466,7 @@ a:hover {
 	height: 500px;
 	object-fit: cover;
 	border-radius: var(--radius-lg);
-	margin-bottom: var(--space-8);
+	margin-bottom: var(--space-5);
 	box-shadow: var(--shadow-lg);
 }
 
@@ -1264,7 +1264,7 @@ a:hover {
 
 .fbad-nutrition__macro {
 	background: var(--color-cream);
-	padding: var(--space-3);
+	padding: var(--space-1);
 	border-radius: var(--radius-md);
 	text-align: center;
 	border: 2px solid var(--color-sage);
