@@ -813,12 +813,12 @@ a:hover {
 }
 
 .fbad-recipe-detail__hero {
-	margin-bottom: var(--space-6);
+	margin-bottom: var(--space-4);
 }
 
 .fbad-recipe-detail__header {
 	width: 100%;
-	margin-bottom: var(--space-6);
+	margin-bottom: var(--space-5);
 	padding: 0 var(--space-4);
 	text-align: center;
 }
@@ -1206,7 +1206,7 @@ a:hover {
 	border: 3px solid var(--color-charcoal);
 	border-radius: var(--radius-md);
 	padding: var(--space-5);
-	margin-top: var(--space-6);
+	margin-top: var(--space-8);
 	box-shadow: var(--shadow-md);
 }
 
