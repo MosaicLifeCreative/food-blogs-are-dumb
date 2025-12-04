@@ -823,9 +823,9 @@ a:hover {
 }
 
 .fbad-recipe-detail__title-row {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
 	gap: var(--space-4);
 	margin-bottom: var(--space-3);
 }
@@ -836,7 +836,8 @@ a:hover {
 	color: var(--color-charcoal);
 	margin: 0;
 	line-height: 1.2;
-	flex: 1;
+	text-align: center;
+	grid-column: 2;
 }
 
 .fbad-recipe-detail__meta {
@@ -881,6 +882,9 @@ a:hover {
 	height: auto;
 	min-width: 140px; /* maintain reasonable width for icon + text on desktop */
 	white-space: nowrap;
+	/* Position in grid */
+	grid-column: 3;
+	justify-self: end;
 }
 
 .fbad-save-btn--detail:hover, .fbad-recipe-detail__save-btn:hover {
@@ -1150,8 +1154,18 @@ a:hover {
 	}
 
 	.fbad-recipe-detail__title-row {
-		flex-direction: column;
+		grid-template-columns: 1fr;
 		gap: var(--space-3);
+	}
+
+	.fbad-recipe-detail__title {
+		grid-column: 1;
+		text-align: center;
+	}
+
+	.fbad-recipe-detail__save-btn {
+		grid-column: 1;
+		justify-self: stretch;
 	}
 
 	.fbad-recipe-detail__hero {
@@ -1207,6 +1221,225 @@ a:hover {
 		width: 40px;
 		height: 40px;
 		font-size: var(--text-lg);
+	}
+}
+
+/* ==========================================================================
+   NUTRITION FACTS
+   ========================================================================== */
+
+.fbad-nutrition {
+	background: var(--color-white);
+	border: 3px solid var(--color-charcoal);
+	border-radius: var(--radius-md);
+	padding: var(--space-5);
+	margin-bottom: var(--space-6);
+	max-width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	box-shadow: var(--shadow-md);
+}
+
+.fbad-nutrition__title {
+	font-size: var(--text-3xl);
+	font-family: var(--font-display);
+	font-weight: 900;
+	color: var(--color-charcoal);
+	margin: 0 0 var(--space-2);
+	padding-bottom: var(--space-2);
+	border-bottom: 8px solid var(--color-charcoal);
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.fbad-nutrition__per-serving {
+	font-size: var(--text-sm);
+	color: var(--color-text-light);
+	margin-bottom: var(--space-4);
+	font-weight: 500;
+}
+
+.fbad-nutrition__calories {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	padding: var(--space-4) 0;
+}
+
+.fbad-nutrition__calories-label {
+	font-size: var(--text-xl);
+	font-weight: 700;
+	color: var(--color-charcoal);
+}
+
+.fbad-nutrition__calories-value {
+	font-size: var(--text-4xl);
+	font-family: var(--font-display);
+	font-weight: 900;
+	color: var(--color-cta);
+}
+
+.fbad-nutrition__divider {
+	height: 4px;
+	background: var(--color-charcoal);
+	margin: var(--space-4) 0;
+}
+
+.fbad-nutrition__macros {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: var(--space-4);
+	margin-bottom: var(--space-5);
+}
+
+.fbad-nutrition__macro {
+	background: var(--color-cream);
+	padding: var(--space-4);
+	border-radius: var(--radius-md);
+	text-align: center;
+	border: 2px solid var(--color-sage);
+	transition: all var(--transition-fast);
+}
+
+.fbad-nutrition__macro:hover {
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-md);
+	border-color: var(--color-cta);
+}
+
+.fbad-nutrition__macro-label {
+	font-size: var(--text-sm);
+	font-weight: 600;
+	color: var(--color-text-light);
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-bottom: var(--space-2);
+}
+
+.fbad-nutrition__macro-value {
+	font-size: var(--text-2xl);
+	font-family: var(--font-display);
+	font-weight: 700;
+	color: var(--color-charcoal);
+	display: block;
+	margin-bottom: var(--space-1);
+}
+
+.fbad-nutrition__macro-percent {
+	font-size: var(--text-xs);
+	color: var(--color-text-light);
+	font-weight: 500;
+}
+
+.fbad-nutrition__details {
+	border-top: 2px solid var(--color-cream);
+	padding-top: var(--space-4);
+}
+
+.fbad-nutrition__details-summary {
+	font-size: var(--text-sm);
+	font-weight: 600;
+	color: var(--color-cta);
+	cursor: pointer;
+	list-style: none;
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	padding: var(--space-2);
+	border-radius: var(--radius-sm);
+	transition: background var(--transition-fast);
+}
+
+.fbad-nutrition__details-summary::-webkit-details-marker {
+	display: none;
+}
+
+.fbad-nutrition__details-summary::before {
+	content: '▶';
+	font-size: var(--text-xs);
+	transition: transform var(--transition-fast);
+	display: inline-block;
+}
+
+.fbad-nutrition__details[open] .fbad-nutrition__details-summary::before {
+	transform: rotate(90deg);
+}
+
+.fbad-nutrition__details-summary:hover {
+	background: var(--color-cream);
+}
+
+.fbad-nutrition__details-content {
+	padding-top: var(--space-4);
+}
+
+.fbad-nutrition__detail-group {
+	margin-bottom: var(--space-4);
+}
+
+.fbad-nutrition__detail-group:last-child {
+	margin-bottom: 0;
+}
+
+.fbad-nutrition__detail-group-title {
+	font-size: var(--text-sm);
+	font-weight: 700;
+	color: var(--color-charcoal);
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-bottom: var(--space-3);
+	padding-bottom: var(--space-2);
+	border-bottom: 2px solid var(--color-sage);
+}
+
+.fbad-nutrition__detail-row {
+	display: flex;
+	justify-content: space-between;
+	padding: var(--space-2) var(--space-3);
+	border-bottom: 1px solid var(--color-cream);
+	font-size: var(--text-sm);
+}
+
+.fbad-nutrition__detail-row:last-child {
+	border-bottom: none;
+}
+
+.fbad-nutrition__detail-label {
+	color: var(--color-text);
+	font-weight: 500;
+}
+
+.fbad-nutrition__detail-value {
+	color: var(--color-charcoal);
+	font-weight: 700;
+	font-family: var(--font-mono);
+}
+
+/* Responsive - Nutrition */
+@media (max-width: 768px) {
+	.fbad-nutrition {
+		max-width: 100%;
+		padding: var(--space-4);
+	}
+
+	.fbad-nutrition__title {
+		font-size: var(--text-2xl);
+	}
+
+	.fbad-nutrition__calories-value {
+		font-size: var(--text-3xl);
+	}
+
+	.fbad-nutrition__macros {
+		gap: var(--space-3);
+	}
+
+	.fbad-nutrition__macro {
+		padding: var(--space-3);
+	}
+
+	.fbad-nutrition__macro-value {
+		font-size: var(--text-xl);
 	}
 }
 

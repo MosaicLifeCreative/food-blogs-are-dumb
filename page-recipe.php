@@ -98,6 +98,116 @@ if ($recipe_id) {
                         </div>
                     </header>
 
+                    <!-- Nutrition Facts -->
+                    <?php if (!empty($recipe['nutrition']['nutrients'])): ?>
+                    <div class="fbad-nutrition">
+                        <h2 class="fbad-nutrition__title">Nutrition Facts</h2>
+                        <div class="fbad-nutrition__per-serving">Per Serving</div>
+
+                        <?php
+                        // Extract key nutrients
+                        $nutrients = $recipe['nutrition']['nutrients'];
+                        $nutrient_map = [];
+                        foreach ($nutrients as $nutrient) {
+                            $nutrient_map[$nutrient['name']] = $nutrient;
+                        }
+
+                        // Get macros
+                        $calories = $nutrient_map['Calories'] ?? null;
+                        $protein = $nutrient_map['Protein'] ?? null;
+                        $carbs = $nutrient_map['Carbohydrates'] ?? null;
+                        $net_carbs = $nutrient_map['Net Carbohydrates'] ?? null;
+                        $fiber = $nutrient_map['Fiber'] ?? null;
+                        $sugar = $nutrient_map['Sugar'] ?? null;
+                        $fat = $nutrient_map['Fat'] ?? null;
+                        $sat_fat = $nutrient_map['Saturated Fat'] ?? null;
+                        ?>
+
+                        <!-- Calories (Featured) -->
+                        <?php if ($calories): ?>
+                        <div class="fbad-nutrition__calories">
+                            <span class="fbad-nutrition__calories-label">Calories</span>
+                            <span class="fbad-nutrition__calories-value"><?php echo round($calories['amount']); ?></span>
+                        </div>
+                        <?php endif; ?>
+
+                        <div class="fbad-nutrition__divider"></div>
+
+                        <!-- Macros Grid -->
+                        <div class="fbad-nutrition__macros">
+                            <?php if ($protein): ?>
+                            <div class="fbad-nutrition__macro">
+                                <div class="fbad-nutrition__macro-label">Protein</div>
+                                <div class="fbad-nutrition__macro-value"><?php echo round($protein['amount']); ?>g</div>
+                                <?php if (isset($protein['percentOfDailyNeeds'])): ?>
+                                <div class="fbad-nutrition__macro-percent"><?php echo round($protein['percentOfDailyNeeds']); ?>%</div>
+                                <?php endif; ?>
+                            </div>
+                            <?php endif; ?>
+
+                            <?php if ($carbs): ?>
+                            <div class="fbad-nutrition__macro">
+                                <div class="fbad-nutrition__macro-label">Carbs</div>
+                                <div class="fbad-nutrition__macro-value"><?php echo round($carbs['amount']); ?>g</div>
+                                <?php if (isset($carbs['percentOfDailyNeeds'])): ?>
+                                <div class="fbad-nutrition__macro-percent"><?php echo round($carbs['percentOfDailyNeeds']); ?>%</div>
+                                <?php endif; ?>
+                            </div>
+                            <?php endif; ?>
+
+                            <?php if ($fat): ?>
+                            <div class="fbad-nutrition__macro">
+                                <div class="fbad-nutrition__macro-label">Fat</div>
+                                <div class="fbad-nutrition__macro-value"><?php echo round($fat['amount']); ?>g</div>
+                                <?php if (isset($fat['percentOfDailyNeeds'])): ?>
+                                <div class="fbad-nutrition__macro-percent"><?php echo round($fat['percentOfDailyNeeds']); ?>%</div>
+                                <?php endif; ?>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+
+                        <!-- Additional Details (Collapsible/Secondary) -->
+                        <details class="fbad-nutrition__details">
+                            <summary class="fbad-nutrition__details-summary">View Detailed Breakdown</summary>
+                            <div class="fbad-nutrition__details-content">
+                                <?php if ($net_carbs || $fiber || $sugar): ?>
+                                <div class="fbad-nutrition__detail-group">
+                                    <h3 class="fbad-nutrition__detail-group-title">Carbohydrates</h3>
+                                    <?php if ($net_carbs): ?>
+                                    <div class="fbad-nutrition__detail-row">
+                                        <span class="fbad-nutrition__detail-label">Net Carbs</span>
+                                        <span class="fbad-nutrition__detail-value"><?php echo round($net_carbs['amount']); ?>g</span>
+                                    </div>
+                                    <?php endif; ?>
+                                    <?php if ($fiber): ?>
+                                    <div class="fbad-nutrition__detail-row">
+                                        <span class="fbad-nutrition__detail-label">Fiber</span>
+                                        <span class="fbad-nutrition__detail-value"><?php echo round($fiber['amount']); ?>g</span>
+                                    </div>
+                                    <?php endif; ?>
+                                    <?php if ($sugar): ?>
+                                    <div class="fbad-nutrition__detail-row">
+                                        <span class="fbad-nutrition__detail-label">Sugar</span>
+                                        <span class="fbad-nutrition__detail-value"><?php echo round($sugar['amount']); ?>g</span>
+                                    </div>
+                                    <?php endif; ?>
+                                </div>
+                                <?php endif; ?>
+
+                                <?php if ($sat_fat): ?>
+                                <div class="fbad-nutrition__detail-group">
+                                    <h3 class="fbad-nutrition__detail-group-title">Fats</h3>
+                                    <div class="fbad-nutrition__detail-row">
+                                        <span class="fbad-nutrition__detail-label">Saturated Fat</span>
+                                        <span class="fbad-nutrition__detail-value"><?php echo round($sat_fat['amount']); ?>g</span>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+                            </div>
+                        </details>
+                    </div>
+                    <?php endif; ?>
+
                     <!-- Main Content -->
                     <div class="fbad-recipe-detail__main">
                         <!-- Ingredients Sidebar -->
