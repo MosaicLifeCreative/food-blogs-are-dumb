@@ -818,31 +818,24 @@ a:hover {
 
 .fbad-recipe-detail__header {
 	width: 100%;
-	margin-bottom: var(--space-4);
+	margin-bottom: var(--space-6);
 	padding: 0 var(--space-4);
-}
-
-.fbad-recipe-detail__title-row {
-	display: grid;
-	grid-template-columns: 1fr auto 1fr;
-	align-items: center;
-	gap: var(--space-4);
-	margin-bottom: var(--space-3);
+	text-align: center;
 }
 
 .fbad-recipe-detail__title {
 	font-size: var(--text-5xl);
 	font-family: var(--font-display);
 	color: var(--color-charcoal);
-	margin: 0;
+	margin: 0 0 var(--space-4);
 	line-height: 1.2;
-	text-align: center;
-	grid-column: 2;
 }
 
 .fbad-recipe-detail__meta {
 	display: flex;
 	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
 	gap: var(--space-4);
 	font-size: var(--text-base);
 	color: var(--color-text-light);
@@ -880,11 +873,7 @@ a:hover {
 	position: static;
 	width: auto;
 	height: auto;
-	min-width: 140px; /* maintain reasonable width for icon + text on desktop */
 	white-space: nowrap;
-	/* Position in grid */
-	grid-column: 3;
-	justify-self: end;
 }
 
 .fbad-save-btn--detail:hover, .fbad-recipe-detail__save-btn:hover {
@@ -1153,21 +1142,6 @@ a:hover {
 		font-size: var(--text-3xl);
 	}
 
-	.fbad-recipe-detail__title-row {
-		grid-template-columns: 1fr;
-		gap: var(--space-3);
-	}
-
-	.fbad-recipe-detail__title {
-		grid-column: 1;
-		text-align: center;
-	}
-
-	.fbad-recipe-detail__save-btn {
-		grid-column: 1;
-		justify-self: stretch;
-	}
-
 	.fbad-recipe-detail__hero {
 		margin-bottom: var(--space-4);
 	}
@@ -1182,7 +1156,6 @@ a:hover {
 
 	.fbad-recipe-detail__save-btn {
 		width: 100%;
-		min-width: auto; /* let it fill available width */
 		padding: 12px 18px;
 		font-size: var(--text-base);
 		justify-content: center;
@@ -1233,10 +1206,7 @@ a:hover {
 	border: 3px solid var(--color-charcoal);
 	border-radius: var(--radius-md);
 	padding: var(--space-5);
-	margin-bottom: var(--space-6);
-	max-width: 500px;
-	margin-left: auto;
-	margin-right: auto;
+	margin-top: var(--space-6);
 	box-shadow: var(--shadow-md);
 }
 
@@ -1418,12 +1388,12 @@ a:hover {
 /* Responsive - Nutrition */
 @media (max-width: 768px) {
 	.fbad-nutrition {
-		max-width: 100%;
 		padding: var(--space-4);
+		margin-top: var(--space-4);
 	}
 
 	.fbad-nutrition__title {
-		font-size: var(--text-2xl);
+		font-size: var(--text-xl);
 	}
 
 	.fbad-nutrition__calories-value {
@@ -1439,7 +1409,7 @@ a:hover {
 	}
 
 	.fbad-nutrition__macro-value {
-		font-size: var(--text-xl);
+		font-size: var(--text-lg);
 	}
 }
 
